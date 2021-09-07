@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52426DE66F40097E2D8 /* AppDelegate.swift */; };
 		9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */; };
-		9A81C52926DE66F40097E2D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52826DE66F40097E2D8 /* ViewController.swift */; };
-		9A81C52C26DE66F40097E2D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C52A26DE66F40097E2D8 /* Main.storyboard */; };
 		9A81C52E26DE66FA0097E2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C52D26DE66FA0097E2D8 /* Assets.xcassets */; };
 		9A81C53126DE66FA0097E2D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C52F26DE66FA0097E2D8 /* LaunchScreen.storyboard */; };
+		9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54126DE703F0097E2D8 /* CurrencyInfoVC.swift */; };
+		9A81C54526DE71590097E2D8 /* ConverterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54426DE71590097E2D8 /* ConverterVC.swift */; };
+		9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54826DF7EE10097E2D8 /* CCButton.swift */; };
+		9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9A81C52126DE66F40097E2D8 /* Currency converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A81C52426DE66F40097E2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9A81C52826DE66F40097E2D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9A81C52B26DE66F40097E2D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A81C52D26DE66FA0097E2D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A81C53026DE66FA0097E2D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A81C53226DE66FA0097E2D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A81C54126DE703F0097E2D8 /* CurrencyInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInfoVC.swift; sourceTree = "<group>"; };
+		9A81C54426DE71590097E2D8 /* ConverterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterVC.swift; sourceTree = "<group>"; };
+		9A81C54826DF7EE10097E2D8 /* CCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCButton.swift; sourceTree = "<group>"; };
+		9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCNumberTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +62,13 @@
 			children = (
 				9A81C52426DE66F40097E2D8 /* AppDelegate.swift */,
 				9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */,
-				9A81C52826DE66F40097E2D8 /* ViewController.swift */,
-				9A81C52A26DE66F40097E2D8 /* Main.storyboard */,
 				9A81C52D26DE66FA0097E2D8 /* Assets.xcassets */,
 				9A81C52F26DE66FA0097E2D8 /* LaunchScreen.storyboard */,
 				9A81C53226DE66FA0097E2D8 /* Info.plist */,
+				9A81C54426DE71590097E2D8 /* ConverterVC.swift */,
+				9A81C54126DE703F0097E2D8 /* CurrencyInfoVC.swift */,
+				9A81C54826DF7EE10097E2D8 /* CCButton.swift */,
+				9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */,
 			);
 			path = "Currency converter";
 			sourceTree = "<group>";
@@ -126,7 +132,6 @@
 			files = (
 				9A81C53126DE66FA0097E2D8 /* LaunchScreen.storyboard in Resources */,
 				9A81C52E26DE66FA0097E2D8 /* Assets.xcassets in Resources */,
-				9A81C52C26DE66F40097E2D8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +142,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A81C52926DE66F40097E2D8 /* ViewController.swift in Sources */,
+				9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */,
+				9A81C54526DE71590097E2D8 /* ConverterVC.swift in Sources */,
+				9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */,
 				9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */,
+				9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */,
 				9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,14 +154,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9A81C52A26DE66F40097E2D8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9A81C52B26DE66F40097E2D8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9A81C52F26DE66FA0097E2D8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -296,7 +296,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexmosunov.Currency-converter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -315,7 +315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alexmosunov.Currency-converter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
