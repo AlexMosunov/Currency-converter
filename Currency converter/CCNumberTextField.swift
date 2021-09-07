@@ -21,7 +21,7 @@ class CCNumberTextField: UITextField {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         
-        keyboardType = .numbersAndPunctuation
+        keyboardType = .decimalPad
         
         layer.cornerRadius = 10
         layer.borderWidth = 2
@@ -29,7 +29,7 @@ class CCNumberTextField: UITextField {
         
         textColor = .label
         tintColor = .label
-        textAlignment = .left
+        textAlignment = .center
         font = UIFont.preferredFont(forTextStyle: .title2)
         
         backgroundColor = .tertiarySystemBackground

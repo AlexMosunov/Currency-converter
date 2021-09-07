@@ -15,6 +15,7 @@
 		9A81C54526DE71590097E2D8 /* ConverterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54426DE71590097E2D8 /* ConverterVC.swift */; };
 		9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54826DF7EE10097E2D8 /* CCButton.swift */; };
 		9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */; };
+		9A81C55026E78AFF0097E2D8 /* CCResultLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54F26E78AFF0097E2D8 /* CCResultLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9A81C54426DE71590097E2D8 /* ConverterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterVC.swift; sourceTree = "<group>"; };
 		9A81C54826DF7EE10097E2D8 /* CCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCButton.swift; sourceTree = "<group>"; };
 		9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCNumberTextField.swift; sourceTree = "<group>"; };
+		9A81C54F26E78AFF0097E2D8 /* CCResultLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCResultLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				9A81C54126DE703F0097E2D8 /* CurrencyInfoVC.swift */,
 				9A81C54826DF7EE10097E2D8 /* CCButton.swift */,
 				9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */,
+				9A81C54F26E78AFF0097E2D8 /* CCResultLabel.swift */,
 			);
 			path = "Currency converter";
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */,
+				9A81C55026E78AFF0097E2D8 /* CCResultLabel.swift in Sources */,
 				9A81C54526DE71590097E2D8 /* ConverterVC.swift in Sources */,
 				9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */,
 				9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */,
