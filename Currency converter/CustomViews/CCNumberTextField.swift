@@ -22,6 +22,7 @@ class CCNumberTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         
         keyboardType = .decimalPad
+        returnKeyType = .done
         
         layer.cornerRadius = 10
         layer.borderWidth = 2
