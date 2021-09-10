@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,13 @@
 		9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54826DF7EE10097E2D8 /* CCButton.swift */; };
 		9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */; };
 		9A81C55026E78AFF0097E2D8 /* CCResultLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C54F26E78AFF0097E2D8 /* CCResultLabel.swift */; };
+		9A81C56B26EA1F4D0097E2D8 /* CurrencyPairMonobank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C56A26EA1F4D0097E2D8 /* CurrencyPairMonobank.swift */; };
+		9A81C56E26EA1F610097E2D8 /* AlamofireNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C56D26EA1F610097E2D8 /* AlamofireNetworkRequest.swift */; };
+		9A81C57426EA28EF0097E2D8 /* isoCodes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C57326EA28EF0097E2D8 /* isoCodes.plist */; };
+		9A81C57726EA29540097E2D8 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C57626EA29540097E2D8 /* String+Ext.swift */; };
+		9A81C57E26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C57D26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift */; };
+		9A81C58326EB56200097E2D8 /* ConverterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C58226EB56200097E2D8 /* ConverterModel.swift */; };
+		9A81C58626EB6A480097E2D8 /* CurrencyPairResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */; };
 		B7B437F38A275940C30C0E05 /* Pods_Currency_converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A1C0EB8F60131F907D1A8FA /* Pods_Currency_converter.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +40,13 @@
 		9A81C54826DF7EE10097E2D8 /* CCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCButton.swift; sourceTree = "<group>"; };
 		9A81C54B26E77AA90097E2D8 /* CCNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCNumberTextField.swift; sourceTree = "<group>"; };
 		9A81C54F26E78AFF0097E2D8 /* CCResultLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCResultLabel.swift; sourceTree = "<group>"; };
+		9A81C56A26EA1F4D0097E2D8 /* CurrencyPairMonobank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairMonobank.swift; sourceTree = "<group>"; };
+		9A81C56D26EA1F610097E2D8 /* AlamofireNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireNetworkRequest.swift; sourceTree = "<group>"; };
+		9A81C57326EA28EF0097E2D8 /* isoCodes.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = isoCodes.plist; sourceTree = "<group>"; };
+		9A81C57626EA29540097E2D8 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		9A81C57D26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairPrivatbank.swift; sourceTree = "<group>"; };
+		9A81C58226EB56200097E2D8 /* ConverterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterModel.swift; sourceTree = "<group>"; };
+		9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairResult.swift; sourceTree = "<group>"; };
 		BFBF896F71ED438A6B6BCBD5 /* Pods-Currency converter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency converter.release.xcconfig"; path = "Target Support Files/Pods-Currency converter/Pods-Currency converter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				9A81C52326DE66F40097E2D8 /* Currency converter */,
+				9A81C57326EA28EF0097E2D8 /* isoCodes.plist */,
 				9A81C52226DE66F40097E2D8 /* Products */,
 				D28AA54C7FC1C60EC28715CA /* Pods */,
 				F3773EF637E1307F82D532D5 /* Frameworks */,
@@ -69,9 +84,11 @@
 		9A81C52326DE66F40097E2D8 /* Currency converter */ = {
 			isa = PBXGroup;
 			children = (
+				9A81C58126EB560E0097E2D8 /* Model */,
+				9A81C55D26EA1C010097E2D8 /* NetworkManager */,
+				9A81C53226DE66FA0097E2D8 /* Info.plist */,
 				9A81C55626EA02750097E2D8 /* Extensions */,
 				9A81C55426EA01EF0097E2D8 /* Screens */,
-				9A81C53226DE66FA0097E2D8 /* Info.plist */,
 				9A81C55526EA02130097E2D8 /* CustomViews */,
 				9A81C55726EA02BC0097E2D8 /* Support */,
 			);
@@ -100,6 +117,7 @@
 		9A81C55626EA02750097E2D8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9A81C57626EA29540097E2D8 /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -115,13 +133,31 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		9A81C55D26EA1C010097E2D8 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				9A81C57D26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift */,
+				9A81C56A26EA1F4D0097E2D8 /* CurrencyPairMonobank.swift */,
+				9A81C56D26EA1F610097E2D8 /* AlamofireNetworkRequest.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		9A81C58126EB560E0097E2D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9A81C58226EB56200097E2D8 /* ConverterModel.swift */,
+				9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D28AA54C7FC1C60EC28715CA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				6899D61C40A23276E4B72342 /* Pods-Currency converter.debug.xcconfig */,
 				BFBF896F71ED438A6B6BCBD5 /* Pods-Currency converter.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -193,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A81C53126DE66FA0097E2D8 /* LaunchScreen.storyboard in Resources */,
+				9A81C57426EA28EF0097E2D8 /* isoCodes.plist in Resources */,
 				9A81C52E26DE66FA0097E2D8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,11 +284,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */,
+				9A81C57E26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift in Sources */,
+				9A81C58626EB6A480097E2D8 /* CurrencyPairResult.swift in Sources */,
 				9A81C55026E78AFF0097E2D8 /* CCResultLabel.swift in Sources */,
 				9A81C54526DE71590097E2D8 /* ConverterVC.swift in Sources */,
+				9A81C58326EB56200097E2D8 /* ConverterModel.swift in Sources */,
 				9A81C54C26E77AA90097E2D8 /* CCNumberTextField.swift in Sources */,
+				9A81C56B26EA1F4D0097E2D8 /* CurrencyPairMonobank.swift in Sources */,
 				9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */,
+				9A81C56E26EA1F610097E2D8 /* AlamofireNetworkRequest.swift in Sources */,
 				9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */,
+				9A81C57726EA29540097E2D8 /* String+Ext.swift in Sources */,
 				9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,22 +9,83 @@ import UIKit
 
 class ConverterVC: UIViewController {
     
+    private let monobankURL = "https://api.monobank.ua/bank/currency"
+    private let privatbankURL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
+    
     private let numberTextField = CCNumberTextField()
     private let resultLabel = CCResultLabel()
     private let callToActionButton = CCButton(bgColor: UIColor.systemRed , title: "GET BITCOINS")
     private let stackView = UIStackView()
     private let pickerView = UIPickerView()
-    private let testArray = ["USD", "UAD", "EUR", "BIT"]
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    private var currenciesArray = [String]()
+    
+    private var baseCurrency: Currency?
+    private var currency: Currency?
+    
+    private let converter = ConverterModel.shared
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+    
         
+//        fetchDataWithAlamofire()
         createDismissKeyboardTapGesture()
         configureResultLabel()
         configureNumberTF()
         configureStackView()
+        configureActivityIndicator()
+        fetchDataWithAlamofire()
         
+    }
+    
+    func fetchDataWithAlamofire() {
+        activityIndicator.startAnimating()
+        AlamofireNetworkRequest.sendRequest(url: privatbankURL) { (currencyPairs) in
+            print(currencyPairs)
+
+//            var currencyNamesArray = [String]()
+            for pair in currencyPairs {
+                if let base_ccy = pair.base_ccy, self.currenciesArray.contains(base_ccy) == false {
+                    self.currenciesArray.append(base_ccy)
+                }
+
+                if let ccy = pair.ccy, self.currenciesArray.contains(ccy) == false {
+                    self.currenciesArray.append(ccy)
+                }
+            }
+            
+            if let firstElement = self.currenciesArray.first {
+                self.baseCurrency = Currency.getCurrency(firstElement)
+                self.currency = Currency.getCurrency(firstElement)
+            }
+            
+            self.converter.calcData(currencyPairs)
+            self.setResultLabelText(num: 100)
+            self.numberTextField.text = "100"
+            
+            DispatchQueue.main.async {
+                self.pickerView.reloadAllComponents()
+                self.activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
+    
+    private func setResultLabelText(num: Float) {
+        
+        if baseCurrency != nil && currency != nil {
+            guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency!, currency: currency!) else {
+                resultLabel.text = "no data"
+                return
+            }
+            resultLabel.text = String(round(100 * num * mult) / 100)
+        } else {
+            resultLabel.text = "0.0"
+        }
     }
 }
 
@@ -41,8 +102,8 @@ extension ConverterVC: UITextFieldDelegate {
         guard let text = numberTextField.text else { return }
         if text.isEmpty {
             resultLabel.text = "0.0"
-        } else if (Double(text) != nil) {
-            resultLabel.text = text
+        } else if let num = Float(text) {
+            setResultLabelText(num: num)
         }
     }
     
@@ -57,12 +118,32 @@ extension ConverterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        testArray.count
+        currenciesArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return testArray[row]
+//        if component == 0 {
+            return currenciesArray[row]
+//        } else {
+//            return currenciesArray.reversed()[row]
+//        }
     }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 0 {
+            baseCurrency = Currency.getCurrency(currenciesArray[row])
+        } else {
+            currency = Currency.getCurrency(currenciesArray[row])
+        }
+        
+
+            if let text = numberTextField.text , let num = Float(text) {
+                setResultLabelText(num: num)
+            }
+
+    }
+    
+
 }
 
 //MARK: - Configure funcs
@@ -134,6 +215,12 @@ extension ConverterVC {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
         ])
+    }
+    
+    private func configureActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.center = view.center
+        activityIndicator.color = .brown
     }
 
     
