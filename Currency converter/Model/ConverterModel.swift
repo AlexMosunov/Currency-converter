@@ -16,64 +16,71 @@ class ConverterModel {
     private init() { }
     
     func calcData(_ data: [CurrencyPairPrivatbank]) {
+        var UAHtoUSD: Float?
+        var USDtoUAH: Float?
+        var UAHtoEUR: Float?
+        var EURtoUAH: Float?
+        var UAHtoRUR: Float?
+        var RURtoUAH: Float?
+    
         for item in data {
             if item.base_ccy == "UAH" {
                 switch item.ccy {
                 case "USD":
                     if let sale = item.sale, let mult = Float(sale) {
-                        let m = 1 / mult
-                        currencyPairsDictionary[.UAHtoUSD] = m
+                        let mult = 1 / mult
+                        currencyPairsDictionary[.UAHtoUSD] = mult
+                        UAHtoUSD = mult
                     }
                     if let buy = item.buy, let mult = Float(buy) {
-                        let m = mult
-                        currencyPairsDictionary[.USDtoUAH] = m
+                        let mult = mult
+                        currencyPairsDictionary[.USDtoUAH] = mult
+                        USDtoUAH = mult
                     }
                 case "EUR":
                     if let sale = item.sale, let mult = Float(sale) {
-                        let m = 1 / mult
-                        currencyPairsDictionary[.UAHtoEUR] = m
+                        let mult = 1 / mult
+                        currencyPairsDictionary[.UAHtoEUR] = mult
+                        UAHtoEUR = mult
                     }
                     
                     if let buy = item.buy, let mult = Float(buy) {
-                        let m = mult
-                        currencyPairsDictionary[.EURtoUAH] = m
+                        let mult = mult
+                        currencyPairsDictionary[.EURtoUAH] = mult
+                        EURtoUAH = mult
                     }
                 case "RUR":
                     if let sale = item.sale, let mult = Float(sale) {
-                        let m = 1 / mult
-                        currencyPairsDictionary[.UAHtoRUR] = m
+                        let mult = 1 / mult
+                        currencyPairsDictionary[.UAHtoRUR] = mult
+                        UAHtoRUR = mult
                     }
                     
                     if let buy = item.buy, let mult = Float(buy) {
-                        let m = mult
-                        currencyPairsDictionary[.RURtoUAH] = m
+                        let mult = mult
+                        currencyPairsDictionary[.RURtoUAH] = mult
+                        RURtoUAH = mult
                     }
                 default:
                     break
                 }
             }
-//            else if item.base_ccy == "USD" {
-//                switch item.ccy {
-//                case "UAH":
-//                    if let buy = item.buy, let mult = Float(buy) {
-//                        let m = mult
-//                        currencyPairsDictionary[.USDtoUAH] = m
-//                    }
-//                case "EUR":
-//                    if let buy = item.buy, let mult = Float(buy) {
-//                        let m = 1 / mult
-//                        currencyPairsDictionary[.USDtoEUR] = m
-//                    }
-//                case "RUR":
-//                    if let buy = item.buy, let mult = Float(buy) {
-//                        let m = 1 / mult
-//                        currencyPairsDictionary[.USDtoRUR] = m
-//                    }
-//                default:
-//                    break
-//                }
-//            }
         }
+        
+        guard UAHtoUSD != nil,
+              UAHtoEUR != nil,
+              UAHtoRUR != nil,
+              RURtoUAH != nil,
+              EURtoUAH != nil,
+              USDtoUAH != nil else { return }
+        currencyPairsDictionary[.USDtoEUR] = UAHtoEUR! / UAHtoUSD!
+        currencyPairsDictionary[.EURtoUSD] = EURtoUAH! / USDtoUAH!
+        
+        currencyPairsDictionary[.USDtoRUR] = UAHtoRUR! / UAHtoUSD!
+        currencyPairsDictionary[.RURtoUSD] = RURtoUAH! / USDtoUAH!
+        
+        currencyPairsDictionary[.EURtoRUR] = UAHtoRUR! / UAHtoEUR!
+        currencyPairsDictionary[.RURtoEUR] = RURtoUAH! / EURtoUAH!
     }
     
     
@@ -125,26 +132,8 @@ class ConverterModel {
             case .rur:
                 return 1
             }
-            
-            
-            
-        default:
-            return nil
         }
     }
-    
-//    func getCurrencyCourse() -> Float? {
-//        switch currencyPair
-//        {
-//        case .UAHtoUSD:
-//            return USDtoUAH
-//        default:
-//            return nil
-//        }
-//    }
-    
-    
-    
     
 }
 

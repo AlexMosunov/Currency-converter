@@ -45,9 +45,7 @@ class ConverterVC: UIViewController {
     func fetchDataWithAlamofire() {
         activityIndicator.startAnimating()
         AlamofireNetworkRequest.sendRequest(url: privatbankURL) { (currencyPairs) in
-            print(currencyPairs)
 
-//            var currencyNamesArray = [String]()
             for pair in currencyPairs {
                 if let base_ccy = pair.base_ccy, self.currenciesArray.contains(base_ccy) == false {
                     self.currenciesArray.append(base_ccy)
@@ -76,7 +74,6 @@ class ConverterVC: UIViewController {
     
     
     private func setResultLabelText(num: Float) {
-        
         if baseCurrency != nil && currency != nil {
             guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency!, currency: currency!) else {
                 resultLabel.text = "no data"
