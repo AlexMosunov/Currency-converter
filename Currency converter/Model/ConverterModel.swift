@@ -157,5 +157,4 @@ public enum CurrencyPairs: Float {
     case EURtoRUR
     case RURtoEUR
     
-    case equalCurrencies
 }

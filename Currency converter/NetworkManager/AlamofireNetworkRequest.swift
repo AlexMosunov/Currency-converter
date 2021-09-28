@@ -15,7 +15,6 @@ class AlamofireNetworkRequest {
         
         guard let url = URL(string: url) else { return }
         
-        
         request(url, method: .get).validate().responseJSON { (response) in
             
             switch response.result {
@@ -27,9 +26,6 @@ class AlamofireNetworkRequest {
                 var currencyPairs = [CurrencyPairPrivatbank]()
                 currencyPairs = CurrencyPairPrivatbank.getArray(from: value)!
                 completion(currencyPairs)
-//                var courses = [Course]()
-//                courses = Course.getArray(from: value)!
-//                completion(courses)
                 
             case .failure(let error):
                 print(error)

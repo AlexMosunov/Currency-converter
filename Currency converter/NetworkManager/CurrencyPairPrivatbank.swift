@@ -16,7 +16,6 @@ struct CurrencyPairPrivatbank {
 
     
     init?(json: [String: Any]) {
-        
         let ccy = json["ccy"] as? String
         let base_ccy = json["base_ccy"] as? String
         let buy = json["buy"] as? String
@@ -29,9 +28,7 @@ struct CurrencyPairPrivatbank {
     }
     
     static func getArray(from jsonArray: Any) -> [CurrencyPairPrivatbank]? {
-        
         guard let jsonArray = jsonArray as? Array<[String: Any]> else { return nil }
         return jsonArray.compactMap { CurrencyPairPrivatbank(json: $0) }
-        
     }
 }
