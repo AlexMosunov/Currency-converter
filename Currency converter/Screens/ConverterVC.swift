@@ -9,9 +9,6 @@ import UIKit
 
 class ConverterVC: UIViewController {
     
-    private let monobankURL = "https://api.monobank.ua/bank/currency"
-    private let privatbankURL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
-    
     private let numberTextField = CCNumberTextField()
     private let resultLabel = CCResultLabel()
     private let callToActionButton = CCButton(bgColor: UIColor.systemRed , title: "GET BITCOINS")
@@ -31,20 +28,17 @@ class ConverterVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
     
-        
-//        fetchDataWithAlamofire()
         createDismissKeyboardTapGesture()
         configureResultLabel()
         configureNumberTF()
         configureStackView()
         configureActivityIndicator()
         fetchDataWithAlamofire()
-        
     }
     
     func fetchDataWithAlamofire() {
         activityIndicator.startAnimating()
-        AlamofireNetworkRequest.sendRequest(url: privatbankURL) { (currencyPairs) in
+        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.baseCurrencies)") { (currencyPairs) in
 
             for pair in currencyPairs {
                 if let base_ccy = pair.base_ccy, self.currenciesArray.contains(base_ccy) == false {
@@ -71,7 +65,6 @@ class ConverterVC: UIViewController {
             }
         }
     }
-    
     
     private func setResultLabelText(num: Float) {
         if baseCurrency != nil && currency != nil {

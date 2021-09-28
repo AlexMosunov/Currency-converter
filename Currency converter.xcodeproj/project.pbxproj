@@ -23,6 +23,7 @@
 		9A81C57E26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C57D26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift */; };
 		9A81C58326EB56200097E2D8 /* ConverterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C58226EB56200097E2D8 /* ConverterModel.swift */; };
 		9A81C58626EB6A480097E2D8 /* CurrencyPairResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */; };
+		9A98C48F270337E400091E98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A98C48E270337E400091E98 /* Constants.swift */; };
 		B7B437F38A275940C30C0E05 /* Pods_Currency_converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A1C0EB8F60131F907D1A8FA /* Pods_Currency_converter.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		9A81C57D26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairPrivatbank.swift; sourceTree = "<group>"; };
 		9A81C58226EB56200097E2D8 /* ConverterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterModel.swift; sourceTree = "<group>"; };
 		9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairResult.swift; sourceTree = "<group>"; };
+		9A98C48E270337E400091E98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BFBF896F71ED438A6B6BCBD5 /* Pods-Currency converter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency converter.release.xcconfig"; path = "Target Support Files/Pods-Currency converter/Pods-Currency converter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,9 +89,10 @@
 				9A81C58126EB560E0097E2D8 /* Model */,
 				9A81C55D26EA1C010097E2D8 /* NetworkManager */,
 				9A81C53226DE66FA0097E2D8 /* Info.plist */,
-				9A81C55626EA02750097E2D8 /* Extensions */,
 				9A81C55426EA01EF0097E2D8 /* Screens */,
 				9A81C55526EA02130097E2D8 /* CustomViews */,
+				9A81C55626EA02750097E2D8 /* Extensions */,
+				9A98C48D27032BC900091E98 /* Global */,
 				9A81C55726EA02BC0097E2D8 /* Support */,
 			);
 			path = "Currency converter";
@@ -150,6 +153,14 @@
 				9A81C58526EB6A480097E2D8 /* CurrencyPairResult.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9A98C48D27032BC900091E98 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				9A98C48E270337E400091E98 /* Constants.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		D28AA54C7FC1C60EC28715CA /* Pods */ = {
@@ -294,6 +305,7 @@
 				9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */,
 				9A81C56E26EA1F610097E2D8 /* AlamofireNetworkRequest.swift in Sources */,
 				9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */,
+				9A98C48F270337E400091E98 /* Constants.swift in Sources */,
 				9A81C57726EA29540097E2D8 /* String+Ext.swift in Sources */,
 				9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */,
 			);
