@@ -18,15 +18,14 @@ class ConverterVC: UIViewController {
     private let pickerView = UIPickerView()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
-    
     //MARK: Properties
     
     private var baseNumber: Float = 100
+    private var filteredBaseCurrenciesArray = [String]()
     private var filteredCurrenciesArray = [String]()
-    private var baseCurrency: Currency?
-    private var currency: Currency?
+    private var baseCurrency = Currency.usd
+    private var currency = Currency.uah
     private let converter = ConverterModel.shared
-    
     
     // MARK: overrides
     
@@ -60,14 +59,29 @@ class ConverterVC: UIViewController {
             }
             
             // filtering result from api to supported currencies
-            self.filteredCurrenciesArray =  currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
+            self.filteredBaseCurrenciesArray =  currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
+            
+            self.filteredCurrenciesArray = filteredBaseCurrenciesArray
+            
+            // putting usd on the first place of array
+            for i in 0...self.filteredCurrenciesArray.count - 1 {
+                if self.filteredCurrenciesArray[i] == currency.rawValue {
+                    let usd = self.filteredCurrenciesArray.remove(at: i)
+                    self.filteredCurrenciesArray.insert(usd, at: 0)
+                }
+            }
+            
+            // putting uah on the first place of base array
+            for i in 0...self.filteredBaseCurrenciesArray.count - 1 {
+                if self.filteredBaseCurrenciesArray[i] == baseCurrency.rawValue {
+                    let usd = self.filteredBaseCurrenciesArray.remove(at: i)
+                    self.filteredBaseCurrenciesArray.insert(usd, at: 0)
+                }
+            }
             
             // setting first and last element for start
-            if let firstElement = self.filteredCurrenciesArray.first,
-                let lastElement = self.filteredCurrenciesArray.last {
-                self.baseCurrency = Currency.getCurrency(firstElement)
-                self.currency = Currency.getCurrency(lastElement)
-            }
+//            self.baseCurrency = Currency.getCurrency(firstBaseCurrency)
+//            self.currency = Currency.getCurrency(firstCurrency)
             
             // calculating rates for all possible currency pairs
             self.converter.calcData(currencyPairs)
@@ -84,7 +98,7 @@ class ConverterVC: UIViewController {
     
     private func setResultLabelText(num: Float) {
         if baseCurrency != nil && currency != nil {
-            guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency!, currency: currency!) else {
+            guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency, currency: currency) else {
                 resultLabel.text = "no data"
                 return
             }
@@ -124,22 +138,26 @@ extension ConverterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        filteredCurrenciesArray.count
+        filteredBaseCurrenciesArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
-            return filteredCurrenciesArray[row]
+            return filteredBaseCurrenciesArray[row]
         } else {
-            return filteredCurrenciesArray.reversed()[row]
+            return filteredCurrenciesArray[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            baseCurrency = Currency.getCurrency(filteredCurrenciesArray[row])
+            if let baseCurrency = Currency.getCurrency(filteredBaseCurrenciesArray[row]) {
+                self.baseCurrency = baseCurrency
+            }
         } else {
-            currency = Currency.getCurrency(filteredCurrenciesArray[row])
+            if let currency = Currency.getCurrency(filteredCurrenciesArray[row]) {
+                self.currency = currency
+            }
         }
         
         if let text = numberTextField.text , let num = Float(text) {
