@@ -9,56 +9,72 @@ import UIKit
 
 class ConverterVC: UIViewController {
     
+    //MARK: Elements
+    
     private let numberTextField = CCNumberTextField()
     private let resultLabel = CCResultLabel()
-    private let callToActionButton = CCButton(bgColor: UIColor.systemRed , title: "GET BITCOINS")
+//    private let callToActionButton = CCButton(bgColor: UIColor.systemRed , title: "GET BITCOINS")
     private let stackView = UIStackView()
     private let pickerView = UIPickerView()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
-    private var currenciesArray = [String]()
     
+    //MARK: Properties
+    
+    private var baseNumber: Float = 100
+    private var filteredCurrenciesArray = [String]()
     private var baseCurrency: Currency?
     private var currency: Currency?
-    
     private let converter = ConverterModel.shared
     
+    
+    // MARK: overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-    
+        
         createDismissKeyboardTapGesture()
         configureResultLabel()
         configureNumberTF()
         configureStackView()
         configureActivityIndicator()
         fetchDataWithAlamofire()
+        
     }
     
     func fetchDataWithAlamofire() {
         activityIndicator.startAnimating()
-        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.baseCurrencies)") { (currencyPairs) in
+        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.baseCurrencies)") { [self] (currencyPairs) in
 
+            // getting available currencies from API
+            var currenciesArray = [String]()
             for pair in currencyPairs {
-                if let base_ccy = pair.base_ccy, self.currenciesArray.contains(base_ccy) == false {
-                    self.currenciesArray.append(base_ccy)
+                if let base_ccy = pair.base_ccy, currenciesArray.contains(base_ccy) == false {
+                    currenciesArray.append(base_ccy)
                 }
 
-                if let ccy = pair.ccy, self.currenciesArray.contains(ccy) == false {
-                    self.currenciesArray.append(ccy)
+                if let ccy = pair.ccy, currenciesArray.contains(ccy) == false {
+                    currenciesArray.append(ccy)
                 }
             }
             
-            if let firstElement = self.currenciesArray.first {
+            // filtering result from api to supported currencies
+            self.filteredCurrenciesArray =  currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
+            
+            // setting first and last element for start
+            if let firstElement = self.filteredCurrenciesArray.first,
+                let lastElement = self.filteredCurrenciesArray.last {
                 self.baseCurrency = Currency.getCurrency(firstElement)
-                self.currency = Currency.getCurrency(firstElement)
+                self.currency = Currency.getCurrency(lastElement)
             }
             
+            // calculating rates for all possible currency pairs
             self.converter.calcData(currencyPairs)
-            self.setResultLabelText(num: 100)
-            self.numberTextField.text = "100"
-            
+            self.setResultLabelText(num: baseNumber)
+            self.numberTextField.text = "\(baseNumber)"
+
+            // reloading UI
             DispatchQueue.main.async {
                 self.pickerView.reloadAllComponents()
                 self.activityIndicator.stopAnimating()
@@ -108,29 +124,27 @@ extension ConverterVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        currenciesArray.count
+        filteredCurrenciesArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if component == 0 {
-            return currenciesArray[row]
-//        } else {
-//            return currenciesArray.reversed()[row]
-//        }
+        if component == 0 {
+            return filteredCurrenciesArray[row]
+        } else {
+            return filteredCurrenciesArray.reversed()[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            baseCurrency = Currency.getCurrency(currenciesArray[row])
+            baseCurrency = Currency.getCurrency(filteredCurrenciesArray[row])
         } else {
-            currency = Currency.getCurrency(currenciesArray[row])
+            currency = Currency.getCurrency(filteredCurrenciesArray[row])
         }
         
-
-            if let text = numberTextField.text , let num = Float(text) {
-                setResultLabelText(num: num)
-            }
-
+        if let text = numberTextField.text , let num = Float(text) {
+            setResultLabelText(num: num)
+        }
     }
     
 
@@ -191,12 +205,9 @@ extension ConverterVC {
     private func configureStackView() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(configurePickerView())
-//        stackView.addSubview(configurePickerView())
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-//        stackView.backgroundColor = .red
-        
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -212,7 +223,5 @@ extension ConverterVC {
         activityIndicator.center = view.center
         activityIndicator.color = .brown
     }
-
-    
     
 }

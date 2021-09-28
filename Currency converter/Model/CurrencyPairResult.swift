@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum Currency: String {
+enum Currency: String, CaseIterable {
     case usd = "USD"
-    case uah = "UAH"
     case eur = "EUR"
     case rur = "RUR"
+    case uah = "UAH"
     
     static func getCurrency(_ currency: String) -> Currency? {
         switch currency {
@@ -27,11 +27,19 @@ enum Currency: String {
             return nil
         }
     }
+    
+    static var allCasesStringsArray: [String] {
+        var array = [String]()
+        for currency in allCases {
+            array.append(currency.rawValue)
+        }
+        return array
+    }
+
 }
 
 
 struct CurrencyPairResult {
-    
     let pair: CurrencyPairs
     let multiplier: Float?
 }
