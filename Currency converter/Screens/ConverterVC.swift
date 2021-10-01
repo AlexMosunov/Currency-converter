@@ -31,6 +31,12 @@ class ConverterVC: UIViewController {
     private var resultLabelTopConstraint: NSLayoutConstraint?
     private var stackViewTopConstraint: NSLayoutConstraint?
     
+    // MARK: init/deinit
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: overrides
     
     override func viewDidLoad() {
@@ -203,6 +209,7 @@ extension ConverterVC {
         view.addSubview(resultLabel)
         
         resultLabelTopConstraint = NSLayoutConstraint(item: resultLabel, attribute: .topMargin, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: 150)
+        resultLabelTopConstraint?.priority = UILayoutPriority(500)
         resultLabelTopConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
@@ -219,6 +226,7 @@ extension ConverterVC {
         numberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         numberTextFieldTopConstraint = NSLayoutConstraint(item: numberTextField, attribute: .topMargin, relatedBy: .equal, toItem: resultLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 125)
+        numberTextFieldTopConstraint?.priority = UILayoutPriority(500)
         numberTextFieldTopConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
@@ -263,8 +271,8 @@ extension ConverterVC {
 //            stackView.topAnchor.constraint(equalTo: numberTextField.bottomAnchor, constant: 30),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -50)
-//            (equalTo: view.bottomAnchor, constant: -150)
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -75),
+            stackView.heightAnchor.constraint(equalToConstant: 150)
         ])
     }
     
@@ -285,6 +293,8 @@ extension ConverterVC {
         resultLabelTopConstraint = NSLayoutConstraint(item: resultLabel, attribute: .topMargin, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: resultLabelTopConstant)
         numberTextFieldTopConstraint = NSLayoutConstraint(item: numberTextField, attribute: .topMargin, relatedBy: .equal, toItem: resultLabel, attribute: .bottomMargin, multiplier: 1.0, constant: numberTextFieldConstant)
         stackViewTopConstraint = NSLayoutConstraint(item: stackView, attribute: .topMargin, relatedBy: .equal, toItem: numberTextField, attribute: .bottomMargin, multiplier: 1.0, constant: stackViewTopConstant)
+        resultLabelTopConstraint?.priority = UILayoutPriority(500)
+        numberTextFieldTopConstraint?.priority = UILayoutPriority(500)
         
         resultLabelTopConstraint?.isActive = true
         numberTextFieldTopConstraint?.isActive = true
