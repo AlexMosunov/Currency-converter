@@ -20,12 +20,16 @@ class ConverterVC: UIViewController {
     
     //MARK: Properties
     
-    private var baseNumber: Float = 100
+    private var baseNumber = 100
     private var filteredBaseCurrenciesArray = [String]()
     private var filteredCurrenciesArray = [String]()
     private var baseCurrency = Currency.usd
     private var currency = Currency.uah
     private let converter = ConverterModel.shared
+    
+    private var numberTextFieldTopConstraint: NSLayoutConstraint?
+    private var resultLabelTopConstraint: NSLayoutConstraint?
+    private var stackViewTopConstraint: NSLayoutConstraint?
     
     // MARK: overrides
     
@@ -40,7 +44,30 @@ class ConverterVC: UIViewController {
         configureActivityIndicator()
         fetchDataWithAlamofire()
         
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    
+    //MARK: Notification Handlers
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        resetTopConstraintsFor(resultLabelTopConstant: 50,
+                               numberTextFieldConstant: 50,
+                               stackViewTopConstant: 0,
+                               animateWithDuration: 2000)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        resetTopConstraintsFor(resultLabelTopConstant: 150,
+                               numberTextFieldConstant: 125,
+                               stackViewTopConstant: 30,
+                               animateWithDuration: 2000)
+    }
+    
+    
+    // MARK: Fetching data
     
     func fetchDataWithAlamofire() {
         activityIndicator.startAnimating()
@@ -85,7 +112,7 @@ class ConverterVC: UIViewController {
             
             // calculating rates for all possible currency pairs
             self.converter.calcData(currencyPairs)
-            self.setResultLabelText(num: baseNumber)
+            self.setResultLabelText(num: Float(baseNumber))
             self.numberTextField.text = "\(baseNumber)"
 
             // reloading UI
@@ -97,15 +124,11 @@ class ConverterVC: UIViewController {
     }
     
     private func setResultLabelText(num: Float) {
-        if baseCurrency != nil && currency != nil {
-            guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency, currency: currency) else {
-                resultLabel.text = "no data"
-                return
-            }
-            resultLabel.text = String(round(100 * num * mult) / 100)
-        } else {
-            resultLabel.text = "0.0"
+        guard let mult = converter.getCurrencyCourse(baseCurrency: baseCurrency, currency: currency) else {
+            resultLabel.text = "no data"
+            return
         }
+        resultLabel.text = String(round(100 * num * mult) / 100)
     }
 }
 
@@ -179,8 +202,11 @@ extension ConverterVC {
     private func configureResultLabel() {
         view.addSubview(resultLabel)
         
+        resultLabelTopConstraint = NSLayoutConstraint(item: resultLabel, attribute: .topMargin, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: 150)
+        resultLabelTopConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
-            resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+//            resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             resultLabel.heightAnchor.constraint(equalToConstant: 150)
@@ -192,8 +218,10 @@ extension ConverterVC {
         numberTextField.delegate = self
         numberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
+        numberTextFieldTopConstraint = NSLayoutConstraint(item: numberTextField, attribute: .topMargin, relatedBy: .equal, toItem: resultLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 125)
+        numberTextFieldTopConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
-            numberTextField.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 125),
             numberTextField.heightAnchor.constraint(equalToConstant: 45),
             numberTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             numberTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
@@ -226,13 +254,17 @@ extension ConverterVC {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackViewTopConstraint = NSLayoutConstraint(item: stackView, attribute: .topMargin, relatedBy: .equal, toItem: numberTextField, attribute: .bottom, multiplier: 1.0, constant: 30)
+        stackViewTopConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: numberTextField.bottomAnchor, constant: 30),
+//            stackView.topAnchor.constraint(equalTo: numberTextField.bottomAnchor, constant: 30),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -50)
+//            (equalTo: view.bottomAnchor, constant: -150)
         ])
     }
     
@@ -240,6 +272,27 @@ extension ConverterVC {
         view.addSubview(activityIndicator)
         activityIndicator.center = view.center
         activityIndicator.color = .brown
+    }
+    
+    private func resetTopConstraintsFor(resultLabelTopConstant: CGFloat,
+                                        numberTextFieldConstant: CGFloat,
+                                        stackViewTopConstant: CGFloat,
+                                        animateWithDuration: TimeInterval) {
+        resultLabelTopConstraint?.isActive = false
+        numberTextFieldTopConstraint?.isActive = false
+        stackViewTopConstraint?.isActive = false
+        
+        resultLabelTopConstraint = NSLayoutConstraint(item: resultLabel, attribute: .topMargin, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: resultLabelTopConstant)
+        numberTextFieldTopConstraint = NSLayoutConstraint(item: numberTextField, attribute: .topMargin, relatedBy: .equal, toItem: resultLabel, attribute: .bottomMargin, multiplier: 1.0, constant: numberTextFieldConstant)
+        stackViewTopConstraint = NSLayoutConstraint(item: stackView, attribute: .topMargin, relatedBy: .equal, toItem: numberTextField, attribute: .bottomMargin, multiplier: 1.0, constant: stackViewTopConstant)
+        
+        resultLabelTopConstraint?.isActive = true
+        numberTextFieldTopConstraint?.isActive = true
+        stackViewTopConstraint?.isActive = true
+        
+        UIView.animate(withDuration: animateWithDuration, animations:{
+            self.view.layoutIfNeeded()
+        })
     }
     
 }
