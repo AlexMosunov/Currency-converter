@@ -8,10 +8,15 @@
 import Foundation
 import Alamofire
 
+enum apiTypes: Int {
+    case monoBank
+    case privatBank
+}
+
 class AlamofireNetworkRequest {
     
     
-    static func sendRequest(url: String, completion: @escaping (_ courses: [CurrencyPairPrivatbank])->()) {
+    static func sendRequest(url: String, apiType: apiTypes, completion: @escaping (_ courses: [CurrencyPair])->()) {
         
         guard let url = URL(string: url) else { return }
         
@@ -21,11 +26,16 @@ class AlamofireNetworkRequest {
                 
             case .success(let value):
                 
-                print(value)
-                
-                var currencyPairs = [CurrencyPairPrivatbank]()
-                currencyPairs = CurrencyPairPrivatbank.getArray(from: value)!
-                completion(currencyPairs)
+                switch apiType {
+                case .monoBank:
+                    var currencyPairsMono = [CurrencyPairMonobank]()
+                    currencyPairsMono = CurrencyPairMonobank.getArray(from: value)!
+                    completion(currencyPairsMono)
+                case .privatBank:
+                    var currencyPairsPrivat = [CurrencyPairPrivatbank]()
+                    currencyPairsPrivat = CurrencyPairPrivatbank.getArray(from: value)!
+                    completion(currencyPairsPrivat)
+                }
                 
             case .failure(let error):
                 print(error)

@@ -556,7 +556,7 @@
         <key>currency</key>
         <string>Yuan Renminbi</string>
         <key>country</key>
-        <string>CHINA</string>
+        <string>Republic of China</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -642,7 +642,7 @@
         <key>currency</key>
         <string>CFA Franc BEAC</string>
         <key>country</key>
-        <string>CONGO (THE)</string>
+        <string>CONGO</string>
         <key>minorUnit</key>
         <string>0</string>
         <key>digitsCode</key>
@@ -656,7 +656,7 @@
         <key>currency</key>
         <string>New Zealand Dollar</string>
         <key>country</key>
-        <string>COOK ISLANDS (THE)</string>
+        <string>COOK ISLANDS</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -752,7 +752,7 @@
         <key>currency</key>
         <string>Czech Koruna</string>
         <key>country</key>
-        <string>CZECH REPUBLIC (THE)</string>
+        <string>CZECH REPUBLIC</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1028,7 +1028,7 @@
         <key>currency</key>
         <string>Dalasi</string>
         <key>country</key>
-        <string>GAMBIA (THE)</string>
+        <string>GAMBIA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1340,7 +1340,7 @@
         <key>currency</key>
         <string>Iranian Rial</string>
         <key>country</key>
-        <string>IRAN (ISLAMIC REPUBLIC OF)</string>
+        <string>IRAN</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1496,7 +1496,7 @@
         <key>currency</key>
         <string>North Korean Won</string>
         <key>country</key>
-        <string>KOREA (THE DEMOCRATIC PEOPLE’S REPUBLIC OF)</string>
+        <string>NORTH KOREA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1508,7 +1508,7 @@
         <key>currency</key>
         <string>Won</string>
         <key>country</key>
-        <string>KOREA (THE REPUBLIC OF)</string>
+        <string>SOUTH KOREA</string>
         <key>minorUnit</key>
         <string>0</string>
         <key>digitsCode</key>
@@ -1544,7 +1544,7 @@
         <key>currency</key>
         <string>Kip</string>
         <key>country</key>
-        <string>LAO PEOPLE’S DEMOCRATIC REPUBLIC (THE)</string>
+        <string>LAOS</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1676,7 +1676,7 @@
         <key>currency</key>
         <string>Denar</string>
         <key>country</key>
-        <string>MACEDONIA (THE FORMER YUGOSLAV REPUBLIC OF)</string>
+        <string>MACEDONIA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -1868,7 +1868,7 @@
         <key>currency</key>
         <string>Moldovan Leu</string>
         <key>country</key>
-        <string>MOLDOVA (THE REPUBLIC OF)</string>
+        <string>MOLDOVA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2236,7 +2236,7 @@
         <key>currency</key>
         <string>Philippine Peso</string>
         <key>country</key>
-        <string>PHILIPPINES (THE)</string>
+        <string>PHILIPPINES</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2332,7 +2332,7 @@
         <key>currency</key>
         <string>Russian Ruble</string>
         <key>country</key>
-        <string>RUSSIAN FEDERATION (THE)</string>
+        <string>RUSSIA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2674,7 +2674,7 @@
         <key>currency</key>
         <string>Sudanese Pound</string>
         <key>country</key>
-        <string>SUDAN (THE)</string>
+        <string>SUDAN</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2710,7 +2710,7 @@
         <key>currency</key>
         <string>Lilangeni</string>
         <key>country</key>
-        <string>SWAZILAND</string>
+        <string>Eswatini</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2770,7 +2770,7 @@
         <key>currency</key>
         <string>Syrian Pound</string>
         <key>country</key>
-        <string>SYRIAN ARAB REPUBLIC</string>
+        <string>SYRIA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2782,7 +2782,7 @@
         <key>currency</key>
         <string>New Taiwan Dollar</string>
         <key>country</key>
-        <string>TAIWAN (PROVINCE OF CHINA)</string>
+        <string>TAIWAN</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2810,7 +2810,7 @@
         <key>currency</key>
         <string>Tanzanian Shilling</string>
         <key>country</key>
-        <string>TANZANIA, UNITED REPUBLIC OF</string>
+        <string>TANZANIA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -2978,7 +2978,7 @@
         <key>currency</key>
         <string>UAE Dirham</string>
         <key>country</key>
-        <string>UNITED ARAB EMIRATES (THE)</string>
+        <string>UNITED ARAB EMIRATES</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -3088,7 +3088,7 @@
         <key>currency</key>
         <string>Bolívar</string>
         <key>country</key>
-        <string>VENEZUELA (BOLIVARIAN REPUBLIC OF)</string>
+        <string>VENEZUELA</string>
         <key>minorUnit</key>
         <string>2</string>
         <key>digitsCode</key>
@@ -3102,7 +3102,7 @@
         <key>currency</key>
         <string>Dong</string>
         <key>country</key>
-        <string>VIET NAM</string>
+        <string>VIETNAM</string>
         <key>minorUnit</key>
         <string>0</string>
         <key>digitsCode</key>
@@ -3311,6 +3311,31 @@
         <string>N.A.</string>
         <key>digitsCode</key>
         <string>961</string>
+    </dict>
+    
+    <dict>
+        <key>currencyCode</key>
+        <string>AFN</string>
+        <key>currency</key>
+        <string>Afghani</string>
+        <key>country</key>
+        <string>AFGHANISTAN</string>
+        <key>minorUnit</key>
+        <string>2</string>
+        <key>digitsCode</key>
+        <string>971</string>
+    </dict>
+    <dict>
+        <key>currencyCode</key>
+        <string>ALL</string>
+        <key>currency</key>
+        <string>Lek</string>
+        <key>country</key>
+        <string>ALBANIA</string>
+        <key>minorUnit</key>
+        <string>2</string>
+        <key>digitsCode</key>
+        <string>008</string>
     </dict>
 </array>
 </plist>

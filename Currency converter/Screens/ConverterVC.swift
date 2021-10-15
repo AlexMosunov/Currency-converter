@@ -50,6 +50,8 @@ class ConverterVC: UIViewController {
         configureActivityIndicator()
         fetchDataWithAlamofire()
         
+        showSplashScreen()
+//        print("978".toCurrencyCode)
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -77,11 +79,13 @@ class ConverterVC: UIViewController {
     
     func fetchDataWithAlamofire() {
         activityIndicator.startAnimating()
-        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.baseCurrencies)") { [self] (currencyPairs) in
-
+        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (currencyPairs) in
+            guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
+            
             // getting available currencies from API
             var currenciesArray = [String]()
             for pair in currencyPairs {
+//                guard let pair = pair as? CurrencyPairPrivatbank else { return }
                 if let base_ccy = pair.base_ccy, currenciesArray.contains(base_ccy) == false {
                     currenciesArray.append(base_ccy)
                 }
@@ -92,7 +96,7 @@ class ConverterVC: UIViewController {
             }
             
             // filtering result from api to supported currencies
-            self.filteredBaseCurrenciesArray =  currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
+            self.filteredBaseCurrenciesArray = currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
             
             self.filteredCurrenciesArray = filteredBaseCurrenciesArray
             
@@ -303,6 +307,24 @@ extension ConverterVC {
         UIView.animate(withDuration: animateWithDuration, animations:{
             self.view.layoutIfNeeded()
         })
+    }
+    
+    private func showSplashScreen() {
+        let splashScreenView = UIView(frame: self.view.bounds)
+        let splashImage = UIImageView(frame: self.view.bounds)
+        splashImage.image = UIImage(named: "launchScreen")
+        splashImage.contentMode = .scaleAspectFill
+        splashScreenView.addSubview(splashImage)
+        self.view.addSubview(splashScreenView)
+        
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+            UIView.animate(withDuration: 1) {
+                splashScreenView.alpha = 0.0
+            } completion: { bool in
+                splashScreenView.removeFromSuperview()
+            }
+        }
+        
     }
     
 }

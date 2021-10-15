@@ -35,7 +35,6 @@ enum Currency: String, CaseIterable {
         }
         return array
     }
-
 }
 
 

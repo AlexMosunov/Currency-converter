@@ -20,4 +20,17 @@ extension String {
         }
         return "-"
     }
+    
+    public var toCountryName: String {
+        if let path = Bundle.main.path(forResource: "isoCodes", ofType: "plist") {
+            for item in NSArray(contentsOfFile: path) ?? [] {
+                if let value = item as? NSDictionary {
+                    if value["digitsCode"] as? String == self {
+                        return value["country"] as? String ?? "-"
+                    }
+                }
+            }
+        }
+        return "-"
+    }
 }

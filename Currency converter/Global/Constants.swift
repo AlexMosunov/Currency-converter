@@ -12,14 +12,15 @@ struct Constants {
     
     struct Mono {
         static let baseUrlMonoString = "https://api.monobank.ua/bank"
-        static let getCurrencies = "/currency"
+        static let allCurrencies = "/currency"
+        static let getAllCurrencyExchanges = baseUrlMonoString + allCurrencies
     }
     
     
     struct PrivatBank {
         static let baseUrlPBString = "https://api.privatbank.ua/p24api"
-        static let getBaseCurrencyExchanges = "/pubinfo?json&exchange&coursid=5"
-        static let baseCurrencies = baseUrlPBString + getBaseCurrencyExchanges
+        static let baseCurrencies = "/pubinfo?json&exchange&coursid=5"
+        static let getBaseCurrencyExchanges = baseUrlPBString + baseCurrencies
     }
 
     

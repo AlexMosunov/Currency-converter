@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrencyPairPrivatbank {
+struct CurrencyPairPrivatbank: CurrencyPair {
     
     let ccy: String?
     let base_ccy: String?

@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct CurrencyPairMonobank {
+struct CurrencyPairMonobank: CurrencyPair, Hashable {
     
     let currencyCodeA: Int?
     let currencyCodeB: Int?
     let date: Int?
-    let rateBuy: Float?
-    let rateSell: Float?
-    let rateCross: Float?
+    let rateBuy: Double?
+    let rateSell: Double?
+    let rateCross: Double?
     
     init?(json: [String: Any]) {
         
@@ -23,9 +23,9 @@ struct CurrencyPairMonobank {
 
         let date = json["date"] as? Int
         
-        let rateBuy = json["rateBuy"] as? Float
-        let rateSell = json["rateSell"] as? Float
-        let rateCross = json["rateCross"] as? Float
+        let rateBuy = json["rateBuy"] as? Double
+        let rateSell = json["rateSell"] as? Double
+        let rateCross = json["rateCross"] as? Double
         
         self.currencyCodeA = currencyCodeA
         self.currencyCodeB = currencyCodeB
