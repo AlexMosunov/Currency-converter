@@ -35,7 +35,9 @@ class CurrencyInfoVC: UIViewController {
 //        activityIndicator.startAnimating()
         AlamofireNetworkRequest.sendRequest(url: Constants.Mono.getAllCurrencyExchanges, apiType: .monoBank) { currencyPairs in
             guard let currencyPairs = currencyPairs as? [CurrencyPairMonobank] else { return }
-            self.currencyPairsArray = currencyPairs
+            let uahCurrencyCode = 980
+            // only get pairs with base uah currency
+            self.currencyPairsArray = currencyPairs.filter { $0.currencyCodeB == uahCurrencyCode }
             self.updateData()
         }
     }
@@ -52,7 +54,7 @@ class CurrencyInfoVC: UIViewController {
         let width = view.bounds.width
         let padding: CGFloat = 8
         let minItemSpacing: CGFloat = 6
-        let availableWidth = width - (padding * 2) - minItemSpacing
+        let availableWidth = width - (padding * 2) - (minItemSpacing * 2)
         let itemWidth = availableWidth / 2
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -60,6 +62,15 @@ class CurrencyInfoVC: UIViewController {
         flowLayout.itemSize = CGSize(width: itemWidth, height: 100)
         
         return flowLayout
+    }
+    
+    func configureLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150.0))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
     }
     
     func configureDataSource() {
@@ -75,7 +86,7 @@ class CurrencyInfoVC: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CurrencyPairMonobank>()
         snapshot.appendSections([.main])
         snapshot.appendItems(currencyPairsArray)
-        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        DispatchQueue.main.async {self.dataSource.apply(snapshot, animatingDifferences: true)}
     }
     
 //    func configureTableView() {

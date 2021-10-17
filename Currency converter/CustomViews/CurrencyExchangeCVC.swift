@@ -10,18 +10,19 @@ import UIKit
 class CurrencyExchangeCVC: UICollectionViewCell {
     
     static let reuseID = "CurrencyExchangeCVC"
-    let titleLabel = CETitleLabel(textAlignment: .right, fontSize: 16)
-    let bodyLabel = CEBodyLabel(textAlignment: .left)
-    let emogyFlagLabel = CETitleLabel(textAlignment: .center, fontSize: 28)
-    let rateLabel = CETitleLabel(textAlignment: .center, fontSize: 20)
-    let stackView = UIStackView()
+    let padding: CGFloat = 4
     
-    let padding: CGFloat = 8
+    let titleLabel = CETitleLabel(textAlignment: .center, fontSize: 16)
+    let bodyLabel = CEBodyLabel(textAlignment: .left)
+    let emogyFlagLabel = CETitleLabel(textAlignment: .center, fontSize: 20)
+    let rateLabel = CETitleLabel(textAlignment: .left, fontSize: 20)
+    let stackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureEmoji()
+//        configureEmoji()
         configureStackView()
+        configureBodyLabel()
         configureRate()
     }
     
@@ -31,6 +32,7 @@ class CurrencyExchangeCVC: UICollectionViewCell {
     
     
     func set(currencyPair: CurrencyPairMonobank) {
+        
         let currencyCodeA = Utils.tuneCurrencyCode(currencyPair.currencyCodeA)
         let currencyCodeB = Utils.tuneCurrencyCode(currencyPair.currencyCodeB)
         let currencyCodeNameA = currencyCodeA?.toCurrencyCode
@@ -41,11 +43,17 @@ class CurrencyExchangeCVC: UICollectionViewCell {
         let coutryName = currencyCodeA?.toCountryName ?? ""
         let countryCode = locale.isoCode(for: coutryName) ?? ""
         let currencyFlag = Utils.getFlag(from: countryCode)
-        print(currencyFlag)
+
         let rateCross = currencyPair.rateCross
         let rateBuy = currencyPair.rateBuy
         let rateSell = currencyPair.rateSell
-        
+        print("---------------------------------")
+        print("currencyCodeA - \(currencyCodeA)")
+        print("currencyCodeA - \(currencyCodeB)")
+        print("currencyName - \(currencyName)")
+        print("coutryName - \(coutryName)")
+        print("countryCode - \(countryCode)")
+        print("currencyFlag - \(currencyFlag)")
         
         if currencyCodeNameB == "UAH" {
             titleLabel.text = currencyCodeNameA
@@ -61,44 +69,23 @@ class CurrencyExchangeCVC: UICollectionViewCell {
                 rateLabel.text = ""
             }
         }
-        
-        
-        
-        
-//        for pair in currencyPairs {
-//            print("-----------------")
-//            let curr = pair.currencyCodeA
-//            let curCode = self.getCurrencyCodeName(curr)
-//            print(curCode)
-//            print(self.getCurrencyCodeName(pair.currencyCodeB))
-//            print(curr)
-//            print(self.getCurrencyFullName(code: curCode ?? ""))
-////                let countryname = self.getCurrencyFullName(code: curCode ?? "")
-//            print("Country name - \(String(curr ?? 0).toCountryName)")
-//            let locale = Locale(identifier: "en_US_POSIX")
-////                print(locale.isoCode(for: "ALGERIA"))
-//            print("Country code - \(locale.isoCode(for: String(curr ?? 0).toCountryName))")
-//            print("Country flag - \(self.getFlag(from: locale.isoCode(for: String(curr ?? 0).toCountryName) ?? ""))")
-//            print(Date(timeIntervalSince1970: TimeInterval(pair.date ?? 0)) )
-//            print(pair.rateCross ?? 0)
-//            print(pair.rateBuy ?? 0)
-//            print(pair.rateSell ?? 0)
-//            print("-----------------")
-//        }
+        if currencyFlag.isEmpty {
+            stackView.removeArrangedSubview(emogyFlagLabel)
+        }
     }
     
     
-    private func configureEmoji() {
+    private func configureBodyLabel() {
         self.backgroundColor = .cyan
         
-        addSubview(emogyFlagLabel)
-        
+        addSubview(bodyLabel)
         
         NSLayoutConstraint.activate([
-            emogyFlagLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            emogyFlagLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-            emogyFlagLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding * 2),
-            emogyFlagLabel.heightAnchor.constraint(equalToConstant: 30)
+            bodyLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
+            bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
+            bodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
+            bodyLabel.heightAnchor.constraint(equalToConstant: 22),
+            bodyLabel.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width * 0.9)
             
         ])
     }
@@ -106,28 +93,30 @@ class CurrencyExchangeCVC: UICollectionViewCell {
     private func configureRate() {
         addSubview(rateLabel)
         NSLayoutConstraint.activate([
-        rateLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
-        rateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-        rateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding * 2),
-        rateLabel.heightAnchor.constraint(equalToConstant: 22)
+            rateLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
+            rateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
+            rateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
+            rateLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
     
     private func configureStackView() {
         addSubview(stackView)
-        stackView.addArrangedSubview(bodyLabel)
+        stackView.addArrangedSubview(emogyFlagLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.axis         = .horizontal
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         stackView.spacing      = 10
+        stackView.alignment    = .leading
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: emogyFlagLabel.bottomAnchor, constant: padding),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding * 2),
-            stackView.heightAnchor.constraint(equalToConstant: 35),
-            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width)
+//            stackView.widthAnchor.constraint(equalToConstant: emogyFlagLabel.frame.width + titleLabel.frame.width + 10),
+//            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
+            stackView.heightAnchor.constraint(equalToConstant: 35)
+//            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width)
         ])
     }
     

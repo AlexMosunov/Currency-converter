@@ -78,6 +78,8 @@ class ConverterVC: UIViewController {
     // MARK: Fetching data
     
     func fetchDataWithAlamofire() {
+        let countryList = Locale.isoRegionCodes.compactMap { Locale.current.localizedString(forRegionCode: $0) }
+        print(countryList)
         activityIndicator.startAnimating()
         AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (currencyPairs) in
             guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }

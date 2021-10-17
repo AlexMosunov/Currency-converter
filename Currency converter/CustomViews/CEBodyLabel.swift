@@ -31,8 +31,8 @@ class CEBodyLabel: UILabel {
         textColor                   = .secondaryLabel
         font                        = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth   = true
-        minimumScaleFactor          = 0.75
-        lineBreakMode               = .byWordWrapping
+        minimumScaleFactor          = 0.5
+
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
