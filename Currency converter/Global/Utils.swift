@@ -32,7 +32,9 @@ struct Utils {
 //    }
     
     static func getFlag(from countryCode: String) -> String {
-        countryCode
+//        guard !countryCode.isEmpty else { return "  " }
+        if countryCode == "DE" { return "🇪🇺" }
+        return countryCode
             .unicodeScalars
             .map({ 127397 + $0.value })
             .compactMap(UnicodeScalar.init)

@@ -13,14 +13,16 @@ class CurrencyExchangeCVC: UICollectionViewCell {
     let padding: CGFloat = 4
     
     let titleLabel = CETitleLabel(textAlignment: .center, fontSize: 16)
-    let bodyLabel = CEBodyLabel(textAlignment: .left)
+    let bodyLabel = CEBodyLabel(textAlignment: .center)
     let emogyFlagLabel = CETitleLabel(textAlignment: .center, fontSize: 20)
-    let rateLabel = CETitleLabel(textAlignment: .left, fontSize: 20)
+    let rateLabel = CETitleLabel(textAlignment: .center, fontSize: 20)
     let stackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        configureEmoji()
+        self.backgroundColor = .systemTeal
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
         configureStackView()
         configureBodyLabel()
         configureRate()
@@ -69,23 +71,20 @@ class CurrencyExchangeCVC: UICollectionViewCell {
                 rateLabel.text = ""
             }
         }
-        if currencyFlag.isEmpty {
-            stackView.removeArrangedSubview(emogyFlagLabel)
-        }
+        
+        
     }
     
     
     private func configureBodyLabel() {
-        self.backgroundColor = .cyan
-        
         addSubview(bodyLabel)
         
         NSLayoutConstraint.activate([
             bodyLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
-            bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-            bodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
-            bodyLabel.heightAnchor.constraint(equalToConstant: 22),
-            bodyLabel.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width * 0.9)
+            bodyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
+            bodyLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
+            bodyLabel.widthAnchor.constraint(lessThanOrEqualToConstant: self.frame.width),
+            bodyLabel.heightAnchor.constraint(equalToConstant: 25)
             
         ])
     }
@@ -94,9 +93,9 @@ class CurrencyExchangeCVC: UICollectionViewCell {
         addSubview(rateLabel)
         NSLayoutConstraint.activate([
             rateLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
-            rateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-            rateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
-            rateLabel.heightAnchor.constraint(equalToConstant: 22)
+            rateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
+            rateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
+            rateLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -106,29 +105,21 @@ class CurrencyExchangeCVC: UICollectionViewCell {
         stackView.addArrangedSubview(titleLabel)
         stackView.axis         = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing      = 10
-        stackView.alignment    = .leading
-
+        stackView.spacing      = 0
+        stackView.alignment    = .center
+//        stackView.center = self.center
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
-//            stackView.widthAnchor.constraint(equalToConstant: emogyFlagLabel.frame.width + titleLabel.frame.width + 10),
-//            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(padding * 2)),
-            stackView.heightAnchor.constraint(equalToConstant: 35)
-//            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width)
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+//            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
+//            stackView.widthAnchor.constraint(equalToConstant: 50),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
+            stackView.heightAnchor.constraint(equalToConstant: 30),
+            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: self.frame.width)
         ])
     }
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
 
 }
