@@ -17,10 +17,13 @@ class CurrencyInfoVC: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<Section, CurrencyPairMonobank>!
     
     var currencyPairsArray: [CurrencyPairMonobank] = []
+    var filteredCurrencyPairsArray: [CurrencyPairMonobank] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         configureCollectionView()
+        configureSearchController()
         fetchDataWithAlamofire()
         configureDataSource()
     }
@@ -36,7 +39,7 @@ class CurrencyInfoVC: UIViewController {
             let uahCurrencyCode = 980
             // only get pairs with base uah currency
             self.currencyPairsArray = currencyPairs.filter { $0.currencyCodeB == uahCurrencyCode }
-            self.updateData()
+            self.updateData(on: self.currencyPairsArray)
         }
     }
     
@@ -56,11 +59,45 @@ class CurrencyInfoVC: UIViewController {
         })
     }
     
-    func updateData() {
+    func updateData(on currencyPairsArray: [CurrencyPairMonobank]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CurrencyPairMonobank>()
         snapshot.appendSections([.main])
         snapshot.appendItems(currencyPairsArray)
         DispatchQueue.main.async {self.dataSource.apply(snapshot, animatingDifferences: true)}
     }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search currency"
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+    }
+    
 }
 
+extension CurrencyInfoVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            updateData(on: currencyPairsArray)
+            return
+        }
+//        guard let currencyCodeA = Utils.tuneCurrencyCode($0.currencyCodeA) else { return }
+        filteredCurrencyPairsArray = currencyPairsArray.filter{
+            guard let currencyCodeA = Utils.tuneCurrencyCode($0.currencyCodeA) else { return false }
+            let currencyCodeNameA = currencyCodeA.toCurrencyCode
+            let currencyName = Utils.getCurrencyFullName(code: currencyCodeNameA ) ?? ""
+            return (
+                currencyCodeNameA
+                .lowercased()
+                .contains(filter.lowercased())
+                ||
+                currencyName
+                .lowercased()
+                .contains(filter.lowercased())
+            )}
+        updateData(on: filteredCurrencyPairsArray)
+    }
+    
+    
+}

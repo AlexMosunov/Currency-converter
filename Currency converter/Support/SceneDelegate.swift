@@ -36,10 +36,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return currencyVC
     }
     
+    func createCurrencyNC() -> UINavigationController {
+        let currencyVC = CurrencyInfoVC()
+        currencyVC.title = "Currencies"
+        currencyVC.tabBarItem = UITabBarItem(title: "Currencies", image: UIImage(systemName: "dollarsign.circle"), tag: 1)
+        
+        return UINavigationController(rootViewController: currencyVC)
+    }
+    
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
         UITabBar.appearance().tintColor = .systemPink
-        tabBar.viewControllers = [createConverterVC(), createCurrencyVC()]
+        tabBar.viewControllers = [createConverterVC(), createCurrencyNC()]
         
         return tabBar
     }
