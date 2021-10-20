@@ -13,11 +13,12 @@ class CurrencyInfoVC: UIViewController {
         case main
     }
     
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, CurrencyPairMonobank>!
+    private let currenciesModel = CurrenciesExchangesModel.shared
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, CurrencyDataParsed>!
     
-    var currencyPairsArray: [CurrencyPairMonobank] = []
-    var filteredCurrencyPairsArray: [CurrencyPairMonobank] = []
+    private var currencyPairsArray: [CurrencyDataParsed] = []
+    private var filteredCurrencyPairsArray: [CurrencyDataParsed] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +37,14 @@ class CurrencyInfoVC: UIViewController {
                                             apiType: .monoBank) { [weak self] currencyPairs in
             guard let self = self else { return }
             guard let currencyPairs = currencyPairs as? [CurrencyPairMonobank] else { return }
-            let uahCurrencyCode = 980
+    
             // only get pairs with base uah currency
-            self.currencyPairsArray = currencyPairs.filter { $0.currencyCodeB == uahCurrencyCode }
+            let uahCurrencyCode = 980
+            let filteredCurrencyPairs = self.currenciesModel.filterCurrencies(array: currencyPairs, code: uahCurrencyCode)
+            
+            // parse data into CurrencyDataParsed
+            self.currencyPairsArray = self.currenciesModel.parseCurrencyExchangePairs(from: filteredCurrencyPairs)
+            
             self.updateData(on: self.currencyPairsArray)
         }
     }
@@ -51,7 +57,7 @@ class CurrencyInfoVC: UIViewController {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, CurrencyPairMonobank>(collectionView: collectionView,
+        dataSource = UICollectionViewDiffableDataSource<Section, CurrencyDataParsed>(collectionView: collectionView,
                                                                                        cellProvider: { collectionView, indexPath, currencyPair in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrencyExchangeCVC.reuseID, for: indexPath) as! CurrencyExchangeCVC
             cell.set(currencyPair: currencyPair)
@@ -59,8 +65,8 @@ class CurrencyInfoVC: UIViewController {
         })
     }
     
-    func updateData(on currencyPairsArray: [CurrencyPairMonobank]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, CurrencyPairMonobank>()
+    func updateData(on currencyPairsArray: [CurrencyDataParsed]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, CurrencyDataParsed>()
         snapshot.appendSections([.main])
         snapshot.appendItems(currencyPairsArray)
         DispatchQueue.main.async {self.dataSource.apply(snapshot, animatingDifferences: true)}
@@ -76,17 +82,17 @@ class CurrencyInfoVC: UIViewController {
     
 }
 
+//MARK: UISearchResultsUpdating - filter search results
+
 extension CurrencyInfoVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
             updateData(on: currencyPairsArray)
             return
         }
-//        guard let currencyCodeA = Utils.tuneCurrencyCode($0.currencyCodeA) else { return }
         filteredCurrencyPairsArray = currencyPairsArray.filter{
-            guard let currencyCodeA = Utils.tuneCurrencyCode($0.currencyCodeA) else { return false }
-            let currencyCodeNameA = currencyCodeA.toCurrencyCode
-            let currencyName = Utils.getCurrencyFullName(code: currencyCodeNameA ) ?? ""
+            guard let currencyCodeNameA = $0.currencyCodeNameA else { return false }
+            let currencyName = $0.currencyNameA ?? ""
             return (
                 currencyCodeNameA
                 .lowercased()

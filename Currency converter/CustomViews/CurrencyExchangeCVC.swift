@@ -33,45 +33,19 @@ class CurrencyExchangeCVC: UICollectionViewCell {
     }
     
     
-    func set(currencyPair: CurrencyPairMonobank) {
-        
-        let currencyCodeA = Utils.tuneCurrencyCode(currencyPair.currencyCodeA)
-        let currencyCodeB = Utils.tuneCurrencyCode(currencyPair.currencyCodeB)
-        let currencyCodeNameA = currencyCodeA?.toCurrencyCode
-        let currencyCodeNameB = currencyCodeB?.toCurrencyCode
-        let currencyName = Utils.getCurrencyFullName(code: currencyCodeNameA ?? "") ?? ""
-        
-        let locale = Locale(identifier: "en_US_POSIX")
-        let coutryName = currencyCodeA?.toCountryName ?? ""
-        let countryCode = locale.isoCode(for: coutryName) ?? ""
-        let currencyFlag = Utils.getFlag(from: countryCode)
-
-        let rateCross = currencyPair.rateCross
-        let rateBuy = currencyPair.rateBuy
-        let rateSell = currencyPair.rateSell
-        print("---------------------------------")
-        print("currencyCodeA - \(currencyCodeA)")
-        print("currencyCodeA - \(currencyCodeB)")
-        print("currencyName - \(currencyName)")
-        print("coutryName - \(coutryName)")
-        print("countryCode - \(countryCode)")
-        print("currencyFlag - \(currencyFlag)")
-        
-        if currencyCodeNameB == "UAH" {
-            titleLabel.text = currencyCodeNameA
-            bodyLabel.text = currencyName
-            emogyFlagLabel.text = currencyFlag
-            if rateCross != nil {
-                rateLabel.text = String(rateCross!)
-            } else if rateSell != nil {
-                rateLabel.text = String(rateSell!)
-            } else if rateBuy != nil {
-                rateLabel.text = String(rateBuy!)
-            } else {
-                rateLabel.text = ""
-            }
+    func set(currencyPair: CurrencyDataParsed) {
+        titleLabel.text = currencyPair.currencyCodeNameA
+        bodyLabel.text = currencyPair.currencyNameA
+        emogyFlagLabel.text = currencyPair.currencyFlagA
+        if currencyPair.rateCross != nil {
+            rateLabel.text = String(currencyPair.rateCross!)
+        } else if currencyPair.rateSell != nil {
+            rateLabel.text = String(currencyPair.rateSell!)
+        } else if currencyPair.rateBuy != nil {
+            rateLabel.text = String(currencyPair.rateBuy!)
+        } else {
+            rateLabel.text = ""
         }
-        
         
     }
     
