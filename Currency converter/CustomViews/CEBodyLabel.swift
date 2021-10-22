@@ -30,9 +30,11 @@ class CEBodyLabel: UILabel {
     private func configure() {
         textColor                   = .secondaryLabel
         font                        = UIFont.preferredFont(forTextStyle: .body)
+        
         adjustsFontSizeToFitWidth   = true
         minimumScaleFactor          = 0.7
         lineBreakMode               = .byTruncatingMiddle
+        numberOfLines               = 2
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

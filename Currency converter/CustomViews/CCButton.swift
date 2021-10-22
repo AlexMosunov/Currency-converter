@@ -28,7 +28,8 @@ class CCButton: UIButton {
     private func configure() {
         layer.cornerRadius = 10
         titleLabel?.textColor = .white
-        titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        titleLabel?.numberOfLines = 2
         translatesAutoresizingMaskIntoConstraints = false
     }
     

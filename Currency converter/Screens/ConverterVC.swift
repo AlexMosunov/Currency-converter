@@ -17,6 +17,7 @@ class ConverterVC: UIViewController {
     private let stackView = UIStackView()
     private let pickerView = UIPickerView()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let myButton = CCButton(bgColor: UIColor.systemRed , title: "user data")
     
     //MARK: Properties
     
@@ -47,11 +48,12 @@ class ConverterVC: UIViewController {
         configureResultLabel()
         configureNumberTF()
         configureStackView()
+        configureMyButton()
         configureActivityIndicator()
         fetchDataWithAlamofire()
         
         showSplashScreen()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -77,60 +79,70 @@ class ConverterVC: UIViewController {
     // MARK: Fetching data
     
     func fetchDataWithAlamofire() {
-//        let countryList = Locale.isoRegionCodes.compactMap { Locale.current.localizedString(forRegionCode: $0) }
+        //        let countryList = Locale.isoRegionCodes.compactMap { Locale.current.localizedString(forRegionCode: $0) }
         activityIndicator.startAnimating()
-        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (currencyPairs) in
-            guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
-            
-            // getting available currencies from API
-            var currenciesArray = [String]()
-            for pair in currencyPairs {
-//                guard let pair = pair as? CurrencyPairPrivatbank else { return }
-                if let base_ccy = pair.base_ccy, currenciesArray.contains(base_ccy) == false {
-                    currenciesArray.append(base_ccy)
+        AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (result) in
+            switch result {
+            case .failure(let error):
+                ErrorPresenter.showError(message: error.localizedDescription, on: self)
+                
+            case .success(let currencyPairs):
+                guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
+  
+                // getting available currencies from API
+                var currenciesArray = [String]()
+                for pair in currencyPairs {
+                    //                guard let pair = pair as? CurrencyPairPrivatbank else { return }
+                    if let base_ccy = pair.base_ccy, currenciesArray.contains(base_ccy) == false {
+                        currenciesArray.append(base_ccy)
+                    }
+                    
+                    if let ccy = pair.ccy, currenciesArray.contains(ccy) == false {
+                        currenciesArray.append(ccy)
+                    }
                 }
-
-                if let ccy = pair.ccy, currenciesArray.contains(ccy) == false {
-                    currenciesArray.append(ccy)
+                
+                // filtering result from api to supported currencies
+                self.filteredBaseCurrenciesArray = currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
+                
+                self.filteredCurrenciesArray = filteredBaseCurrenciesArray
+                
+                // putting usd on the first place of array
+                for i in 0...self.filteredCurrenciesArray.count - 1 {
+                    if self.filteredCurrenciesArray[i] == currency.rawValue {
+                        let usd = self.filteredCurrenciesArray.remove(at: i)
+                        self.filteredCurrenciesArray.insert(usd, at: 0)
+                    }
                 }
-            }
-            
-            // filtering result from api to supported currencies
-            self.filteredBaseCurrenciesArray = currenciesArray.filter { Currency.allCasesStringsArray.contains($0) }
-            
-            self.filteredCurrenciesArray = filteredBaseCurrenciesArray
-            
-            // putting usd on the first place of array
-            for i in 0...self.filteredCurrenciesArray.count - 1 {
-                if self.filteredCurrenciesArray[i] == currency.rawValue {
-                    let usd = self.filteredCurrenciesArray.remove(at: i)
-                    self.filteredCurrenciesArray.insert(usd, at: 0)
+                
+                // putting uah on the first place of base array
+                for i in 0...self.filteredBaseCurrenciesArray.count - 1 {
+                    if self.filteredBaseCurrenciesArray[i] == baseCurrency.rawValue {
+                        let usd = self.filteredBaseCurrenciesArray.remove(at: i)
+                        self.filteredBaseCurrenciesArray.insert(usd, at: 0)
+                    }
                 }
-            }
-            
-            // putting uah on the first place of base array
-            for i in 0...self.filteredBaseCurrenciesArray.count - 1 {
-                if self.filteredBaseCurrenciesArray[i] == baseCurrency.rawValue {
-                    let usd = self.filteredBaseCurrenciesArray.remove(at: i)
-                    self.filteredBaseCurrenciesArray.insert(usd, at: 0)
+                
+                // setting first and last element for start
+                //            self.baseCurrency = Currency.getCurrency(firstBaseCurrency)
+                //            self.currency = Currency.getCurrency(firstCurrency)
+                
+                // calculating rates for all possible currency pairs
+                self.converter.calcData(currencyPairs)
+                self.setResultLabelText(num: Float(baseNumber))
+                self.numberTextField.text = "\(baseNumber)"
+                
+                // reloading UI
+                DispatchQueue.main.async {
+                    self.pickerView.reloadAllComponents()
+                    self.activityIndicator.stopAnimating()
                 }
-            }
-            
-            // setting first and last element for start
-//            self.baseCurrency = Currency.getCurrency(firstBaseCurrency)
-//            self.currency = Currency.getCurrency(firstCurrency)
-            
-            // calculating rates for all possible currency pairs
-            self.converter.calcData(currencyPairs)
-            self.setResultLabelText(num: Float(baseNumber))
-            self.numberTextField.text = "\(baseNumber)"
-
-            // reloading UI
-            DispatchQueue.main.async {
-                self.pickerView.reloadAllComponents()
-                self.activityIndicator.stopAnimating()
             }
         }
+    }
+    
+    @objc func myButtonTapped() {
+        AlamofireNetworkRequest.getUserInfo(url: Constants.Mono.getUserTransactions)
     }
     
     private func setResultLabelText(num: Float) {
@@ -209,6 +221,20 @@ extension ConverterVC {
         view.addGestureRecognizer(tap)
     }
     
+    private func configureMyButton() {
+        view.addSubview(myButton)
+        myButton.addTarget(self,
+                         action: #selector(myButtonTapped),
+                         for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            myButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
+            myButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            myButton.heightAnchor.constraint(equalToConstant: 75),
+            myButton.widthAnchor.constraint(equalToConstant: 75)
+        ])
+    }
+    
     private func configureResultLabel() {
         view.addSubview(resultLabel)
         
@@ -217,7 +243,6 @@ extension ConverterVC {
         resultLabelTopConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
-//            resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             resultLabel.heightAnchor.constraint(equalToConstant: 150)
@@ -244,6 +269,9 @@ extension ConverterVC {
 //        view.addSubview(pickerView)
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.tintColor = .systemTeal
+        pickerView.backgroundColor = .red
+//        pickerView.vi
 //        pickerView.translatesAutoresizingMaskIntoConstraints = false
 //        pickerView.layer.borderColor = UIColor.black.cgColor
 //        pickerView.layer.borderWidth = 1.5
@@ -283,7 +311,6 @@ extension ConverterVC {
     private func configureActivityIndicator() {
         view.addSubview(activityIndicator)
         activityIndicator.center = view.center
-        activityIndicator.color = .brown
     }
     
     private func resetTopConstraintsFor(resultLabelTopConstant: CGFloat,

@@ -32,25 +32,35 @@ class CurrencyInfoVC: UIViewController {
     // MARK: Fetching data
     
     func fetchDataWithAlamofire() {
-//        activityIndicator.startAnimating()
+        //        activityIndicator.startAnimating()
         AlamofireNetworkRequest.sendRequest(url: Constants.Mono.getAllCurrencyExchanges,
-                                            apiType: .monoBank) { [weak self] currencyPairs in
-            guard let self = self else { return }
-            guard let currencyPairs = currencyPairs as? [CurrencyPairMonobank] else { return }
-    
-            // only get pairs with base uah currency
-            let uahCurrencyCode = 980
-            let filteredCurrencyPairs = self.currenciesModel.filterCurrencies(array: currencyPairs, code: uahCurrencyCode)
-            
-            // parse data into CurrencyDataParsed
-            self.currencyPairsArray = self.currenciesModel.parseCurrencyExchangePairs(from: filteredCurrencyPairs)
-            
-            self.updateData(on: self.currencyPairsArray)
+                                            apiType: .monoBank) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                ErrorPresenter.showError(message: error.localizedDescription, on: self)
+                
+            case .success(let currencyPairs):
+                guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
+                
+                guard let self = self else { return }
+                guard let currencyPairsMonobank = currencyPairs as? [CurrencyPairMonobank] else { return }
+                
+                // only get pairs with base uah currency
+                let uahCurrencyCode = 980
+                let filteredCurrencyPairs = self.currenciesModel.filterCurrencies(array: currencyPairsMonobank, code: uahCurrencyCode)
+                
+                // parse data into CurrencyDataParsed
+                self.currencyPairsArray = self.currenciesModel.parseCurrencyExchangePairs(from: filteredCurrencyPairs)
+                
+                self.updateData(on: self.currencyPairsArray)
+            }
         }
     }
     
+    // MARK: Configuring collection view and it's dataSource
+    
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: view))
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.configureLayout())
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(CurrencyExchangeCVC.self, forCellWithReuseIdentifier: CurrencyExchangeCVC.reuseID)
@@ -104,6 +114,4 @@ extension CurrencyInfoVC: UISearchResultsUpdating {
             )}
         updateData(on: filteredCurrencyPairsArray)
     }
-    
-    
 }

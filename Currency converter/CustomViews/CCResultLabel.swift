@@ -20,7 +20,8 @@ class CCResultLabel: UILabel {
     
     private func configure() {
         text = "0.0"
-        backgroundColor = .systemGray2
+//        backgroundColor = .systemGray2
+        backgroundColor = .systemTeal
         textAlignment = .center
         numberOfLines = 1
         
@@ -28,7 +29,7 @@ class CCResultLabel: UILabel {
         textColor = .systemBackground
         
         layer.masksToBounds = true
-        layer.cornerRadius = 5
+        layer.cornerRadius = 10
         
         translatesAutoresizingMaskIntoConstraints = false
     }

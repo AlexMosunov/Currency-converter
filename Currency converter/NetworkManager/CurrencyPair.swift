@@ -8,6 +8,6 @@
 import Foundation
 
 
-protocol CurrencyPair {
+protocol CurrencyPair: Decodable {
     
 }

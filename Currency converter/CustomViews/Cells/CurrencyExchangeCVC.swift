@@ -58,8 +58,7 @@ class CurrencyExchangeCVC: UICollectionViewCell {
             bodyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
             bodyLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
             bodyLabel.widthAnchor.constraint(lessThanOrEqualToConstant: self.frame.width),
-            bodyLabel.heightAnchor.constraint(equalToConstant: 25)
-            
+            bodyLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
@@ -69,7 +68,7 @@ class CurrencyExchangeCVC: UICollectionViewCell {
             rateLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
             rateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
             rateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
-            rateLabel.heightAnchor.constraint(equalToConstant: 30)
+            rateLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     
@@ -81,7 +80,6 @@ class CurrencyExchangeCVC: UICollectionViewCell {
         stackView.distribution = .fillEqually
         stackView.spacing      = 0
         stackView.alignment    = .center
-//        stackView.center = self.center
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -90,7 +88,7 @@ class CurrencyExchangeCVC: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
 //            stackView.widthAnchor.constraint(equalToConstant: 50),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(padding * 2)),
-            stackView.heightAnchor.constraint(equalToConstant: 30),
+            stackView.heightAnchor.constraint(equalToConstant: 25),
             stackView.widthAnchor.constraint(lessThanOrEqualToConstant: self.frame.width)
         ])
     }

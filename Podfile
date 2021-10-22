@@ -6,7 +6,7 @@ target 'Currency converter' do
   use_frameworks!
 
   # Pods for Currency converter
-  pod 'Alamofire', '~> 4.7'
+  pod 'Alamofire', '~> 5.4'
 
 
 end

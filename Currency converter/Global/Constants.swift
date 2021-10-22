@@ -11,9 +11,13 @@ import Foundation
 struct Constants {
     
     struct Mono {
-        static let baseUrlMonoString = "https://api.monobank.ua/bank"
-        static let allCurrencies = "/currency"
+        static let baseUrlMonoString = "https://api.monobank.ua"
+        static let allCurrencies = "/bank/currency"
+        static let personalInfo = "/personal/client-info"
+        static let transactionsInfo = "/personal/statement/0/1633088970"
         static let getAllCurrencyExchanges = baseUrlMonoString + allCurrencies
+        static let getPersonalInfo = baseUrlMonoString + personalInfo
+        static let getUserTransactions = baseUrlMonoString + transactionsInfo
     }
     
     
