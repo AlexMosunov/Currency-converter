@@ -32,7 +32,7 @@ class CurrencyInfoVC: UIViewController {
     // MARK: Fetching data
     
     func fetchDataWithAlamofire() {
-        //        activityIndicator.startAnimating()
+        self.view.showActivityIndicator()
         AlamofireNetworkRequest.sendRequest(url: Constants.Mono.getAllCurrencyExchanges,
                                             apiType: .monoBank) { [weak self] result in
             switch result {
@@ -40,8 +40,6 @@ class CurrencyInfoVC: UIViewController {
                 ErrorPresenter.showError(message: error.localizedDescription, on: self)
                 
             case .success(let currencyPairs):
-                guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
-                
                 guard let self = self else { return }
                 guard let currencyPairsMonobank = currencyPairs as? [CurrencyPairMonobank] else { return }
                 
@@ -54,6 +52,7 @@ class CurrencyInfoVC: UIViewController {
                 
                 self.updateData(on: self.currencyPairsArray)
             }
+            self?.view.removeActivityIndicator()
         }
     }
     

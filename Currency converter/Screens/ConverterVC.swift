@@ -16,7 +16,6 @@ class ConverterVC: UIViewController {
 //    private let callToActionButton = CCButton(bgColor: UIColor.systemRed , title: "GET BITCOINS")
     private let stackView = UIStackView()
     private let pickerView = UIPickerView()
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let myButton = CCButton(bgColor: UIColor.systemRed , title: "user data")
     
     //MARK: Properties
@@ -49,7 +48,6 @@ class ConverterVC: UIViewController {
         configureNumberTF()
         configureStackView()
         configureMyButton()
-        configureActivityIndicator()
         fetchDataWithAlamofire()
         
         showSplashScreen()
@@ -80,7 +78,7 @@ class ConverterVC: UIViewController {
     
     func fetchDataWithAlamofire() {
         //        let countryList = Locale.isoRegionCodes.compactMap { Locale.current.localizedString(forRegionCode: $0) }
-        activityIndicator.startAnimating()
+        self.view.showActivityIndicator()
         AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (result) in
             switch result {
             case .failure(let error):
@@ -131,7 +129,7 @@ class ConverterVC: UIViewController {
                 // reloading UI
                 DispatchQueue.main.async {
                     self.pickerView.reloadAllComponents()
-                    self.activityIndicator.stopAnimating()
+                    self.view.removeActivityIndicator()
                 }
             }
         }
@@ -265,7 +263,6 @@ extension ConverterVC {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.tintColor = .systemTeal
-        pickerView.backgroundColor = .red
         return pickerView
     }
     
@@ -286,11 +283,6 @@ extension ConverterVC {
             stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -75),
             stackView.heightAnchor.constraint(equalToConstant: 150)
         ])
-    }
-    
-    private func configureActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.center = view.center
     }
     
     private func resetTopConstraintsFor(resultLabelTopConstant: CGFloat,
