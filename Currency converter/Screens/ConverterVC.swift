@@ -92,7 +92,7 @@ class ConverterVC: UIViewController {
                 // getting available currencies from API
                 var currenciesArray = [String]()
                 for pair in currencyPairs {
-                    //                guard let pair = pair as? CurrencyPairPrivatbank else { return }
+
                     if let base_ccy = pair.base_ccy, currenciesArray.contains(base_ccy) == false {
                         currenciesArray.append(base_ccy)
                     }
@@ -122,10 +122,6 @@ class ConverterVC: UIViewController {
                         self.filteredBaseCurrenciesArray.insert(usd, at: 0)
                     }
                 }
-                
-                // setting first and last element for start
-                //            self.baseCurrency = Currency.getCurrency(firstBaseCurrency)
-                //            self.currency = Currency.getCurrency(firstCurrency)
                 
                 // calculating rates for all possible currency pairs
                 self.converter.calcData(currencyPairs)
@@ -266,25 +262,10 @@ extension ConverterVC {
     }
     
     private func configurePickerView() -> UIPickerView {
-//        view.addSubview(pickerView)
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.tintColor = .systemTeal
         pickerView.backgroundColor = .red
-//        pickerView.vi
-//        pickerView.translatesAutoresizingMaskIntoConstraints = false
-//        pickerView.layer.borderColor = UIColor.black.cgColor
-//        pickerView.layer.borderWidth = 1.5
-//        pickerView.frame.width = numberTextField.frame.width
-//        pickerView.frame = CGRect(x: 0, y: 0, width: numberTextField.frame.width, height: 150)
-//        pickerView.backgroundColor = .blue
-//        pickerView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            pickerView.topAnchor.constraint(equalTo: numberTextField.bottomAnchor, constant: 30),
-//            pickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-//            pickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-//            pickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
-//        ])
         return pickerView
     }
     
@@ -300,7 +281,6 @@ extension ConverterVC {
         stackViewTopConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
-//            stackView.topAnchor.constraint(equalTo: numberTextField.bottomAnchor, constant: 30),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -75),
