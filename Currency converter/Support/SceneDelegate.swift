@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createConverterVC() -> UIViewController {
         let converterVC = ConverterVC()
         converterVC.title = "Converter"
-        converterVC.tabBarItem = UITabBarItem(title: "Converter", image: UIImage(systemName: "arrow.left.and.right.circle"), tag: 0)
+        converterVC.tabBarItem = UITabBarItem(title: "Converter", image: UIImage(systemName: "arrow.left.and.right.circle"), tag: 1)
         return converterVC
     }
     
@@ -39,15 +39,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createCurrencyNC() -> UINavigationController {
         let currencyVC = CurrencyInfoVC()
         currencyVC.title = "Currencies"
-        currencyVC.tabBarItem = UITabBarItem(title: "Currencies", image: UIImage(systemName: "dollarsign.circle"), tag: 1)
+        currencyVC.tabBarItem = UITabBarItem(title: "Currencies", image: UIImage(systemName: "dollarsign.circle"), tag: 2)
         
         return UINavigationController(rootViewController: currencyVC)
+    }
+    
+    func createPersonalBudgetNC() -> UINavigationController {
+        let budgetVC = PersonalBudgetVC()
+        budgetVC.title = "Personal Budget"
+        budgetVC.tabBarItem = UITabBarItem(title: "Budget", image: UIImage(systemName: ""), tag: 0)
+        
+        return UINavigationController(rootViewController: budgetVC)
     }
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
         UITabBar.appearance().tintColor = .systemPink
-        tabBar.viewControllers = [createConverterVC(), createCurrencyNC()]
+        tabBar.viewControllers = [createPersonalBudgetNC(), createConverterVC(), createCurrencyNC()]
         
         return tabBar
     }

@@ -39,22 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2135945F-6EB2-435B-A34D-6F8C8607BAE5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Currency converter/NetworkManager/AlamofireNetworkRequest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "getUserInfo(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8D28D042-6CC1-4B0E-BEB6-DBC8C4890F19"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -81,6 +65,22 @@
             startingLineNumber = "40"
             endingLineNumber = "40"
             landmarkName = "fetchDataWithAlamofire()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE2745AA-5BF5-4C52-8F7A-4111EAD020CA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Currency converter/Model/PersonalBudgetModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "fetchUserTransactions(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

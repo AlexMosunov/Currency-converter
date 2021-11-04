@@ -58,20 +58,22 @@ class AlamofireNetworkRequest {
             
         }
     }
-        
-        static func getTransactions(url: String) {
-            AF.request(url, method: .get, headers: [HTTPHeader(name: "X-Token", value: "")]).validate().responseJSON { (response) in
+    
+    static func getUserTransactions(url: String, token: String, completion: @escaping (_ result: Result<[UserTransaction], Error>)->()) {
+        AF.request(url, method: .get, headers: [HTTPHeader(name: "X-Token", value: token)]).validate().responseJSON { (response) in
             
             switch response.result {
             case .success(let value):
+                var userTransactions = [UserTransaction]()
+                userTransactions = UserTransaction.getArray(from: value)!
                 
-                print("!!! USER TRANSACTIONS - \(value)")
+                completion(.success(userTransactions))
                 
             case .failure(let error):
                 print("error = \(error)")
+                completion(.failure(error))
             }
             
-        
         }
     }
     
