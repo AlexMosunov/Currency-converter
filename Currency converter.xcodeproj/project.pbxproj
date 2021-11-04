@@ -27,7 +27,7 @@
 		9A9FA583271DE2A5009F0601 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FA582271DE2A5009F0601 /* UIHelper.swift */; };
 		9A9FA58E271F3F13009F0601 /* CurrencyDataParsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FA58D271F3F13009F0601 /* CurrencyDataParsed.swift */; };
 		9A9FA590271F40EB009F0601 /* CurrenciesExchangesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FA58F271F40EB009F0601 /* CurrenciesExchangesModel.swift */; };
-		9AA1FAFE272327F30043C036 /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FAFD272327F30043C036 /* ErrorPresenter.swift */; };
+		9AA1FAFE272327F30043C036 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FAFD272327F30043C036 /* AlertController.swift */; };
 		9AA1FB15272835930043C036 /* PersonalBudgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FB14272835920043C036 /* PersonalBudgetVC.swift */; };
 		9AA1FB17272839110043C036 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FB16272839110043C036 /* TableViewCell.swift */; };
 		9AA1FB1927283CF90043C036 /* PersonalBudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA1FB1827283CF80043C036 /* PersonalBudgetModel.swift */; };
@@ -67,7 +67,7 @@
 		9A9FA582271DE2A5009F0601 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		9A9FA58D271F3F13009F0601 /* CurrencyDataParsed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDataParsed.swift; sourceTree = "<group>"; };
 		9A9FA58F271F40EB009F0601 /* CurrenciesExchangesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesExchangesModel.swift; sourceTree = "<group>"; };
-		9AA1FAFD272327F30043C036 /* ErrorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
+		9AA1FAFD272327F30043C036 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		9AA1FB14272835920043C036 /* PersonalBudgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBudgetVC.swift; sourceTree = "<group>"; };
 		9AA1FB16272839110043C036 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		9AA1FB1827283CF80043C036 /* PersonalBudgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBudgetModel.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 				9A98C48E270337E400091E98 /* Constants.swift */,
 				9AB7741C2719E4FC005019EA /* Utils.swift */,
 				9A9FA582271DE2A5009F0601 /* UIHelper.swift */,
-				9AA1FAFD272327F30043C036 /* ErrorPresenter.swift */,
+				9AA1FAFD272327F30043C036 /* AlertController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -367,7 +367,7 @@
 				9A81C56E26EA1F610097E2D8 /* AlamofireNetworkRequest.swift in Sources */,
 				9A81C54926DF7EE10097E2D8 /* CCButton.swift in Sources */,
 				9AB774192719DA93005019EA /* CETitleLabel.swift in Sources */,
-				9AA1FAFE272327F30043C036 /* ErrorPresenter.swift in Sources */,
+				9AA1FAFE272327F30043C036 /* AlertController.swift in Sources */,
 				9AB7741D2719E4FC005019EA /* Utils.swift in Sources */,
 				9A98C48F270337E400091E98 /* Constants.swift in Sources */,
 				9A9FA58E271F3F13009F0601 /* CurrencyDataParsed.swift in Sources */,

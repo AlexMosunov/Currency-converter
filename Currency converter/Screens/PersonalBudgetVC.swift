@@ -26,20 +26,18 @@ class PersonalBudgetVC: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.rowHeight = 50
-//        tableView.backgroundColor = .red
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseID)
-//        tableView.pin(to: view)
         sendRequestForUserTransactions()
     }
     
     private func sendRequestForUserTransactions() {
-        ErrorPresenter.showUserDataInput(viewController: self) { userToken in
+        AlertController.showUserDataInput(viewController: self) { userToken in
             self.view.showActivityIndicator()
             AlamofireNetworkRequest.getUserTransactions(url: Constants.Mono.getUserTransactions, token: userToken) { [weak self] result in
                 
                 switch result {
                 case .failure(let error):
-                    ErrorPresenter.showError(message: error.localizedDescription, on: self)
+                    AlertController.showError(message: error.localizedDescription, on: self)
                     
                 case .success(let userTransactions):
                     guard let self = self else { return }
@@ -62,19 +60,20 @@ class PersonalBudgetVC: UIViewController {
 
 }
 
+// MARK: UITableViewDataSource
 
 extension PersonalBudgetVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.amountPerCategory.keys.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseID, for: indexPath) as? TableViewCell else {
             fatalError("TableViewCell cannot be created")
         }
         let category = model.categoriesWithValue[indexPath.row]
-        cell.set(leftText: category.rawValue, rightText: String(model.amountPerCategory[category] ?? 0))
+        let amountPerCategory = Int(model.amountPerCategory[category] ?? 0)
+        cell.set(leftText: category.rawValue, rightText: String(amountPerCategory))
         
         return cell
     }

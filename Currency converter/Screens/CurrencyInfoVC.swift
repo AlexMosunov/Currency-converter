@@ -37,7 +37,7 @@ class CurrencyInfoVC: UIViewController {
                                             apiType: .monoBank) { [weak self] result in
             switch result {
             case .failure(let error):
-                ErrorPresenter.showError(message: error.localizedDescription, on: self)
+                AlertController.showError(message: error.localizedDescription, on: self)
                 
             case .success(let currencyPairs):
                 guard let self = self else { return }

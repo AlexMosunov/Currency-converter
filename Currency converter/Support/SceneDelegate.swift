@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createPersonalBudgetNC() -> UINavigationController {
         let budgetVC = PersonalBudgetVC()
         budgetVC.title = "Personal Budget"
-        budgetVC.tabBarItem = UITabBarItem(title: "Budget", image: UIImage(systemName: ""), tag: 0)
+        budgetVC.tabBarItem = UITabBarItem(title: "Budget", image: UIImage(systemName: "creditcard.circle"), tag: 0)
         
         return UINavigationController(rootViewController: budgetVC)
     }

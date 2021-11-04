@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ErrorPresenter {
+class AlertController {
 
   static func showError(message: String, on viewController: UIViewController?, dismissAction: ((UIAlertAction) -> Void)? = nil) {
     weak var vc = viewController
@@ -31,15 +31,15 @@ class ErrorPresenter {
                 textField.placeholder = "Your token"
             }
             
-            let doneAction = UIAlertAction(title: "done",
+            let doneAction = UIAlertAction(title: "Enter",
                                            style: .default) { action in
                 textFieldInput = alertController.textFields![0].text
                 completed(textFieldInput ?? "")
             }
-            let cancelAction = UIAlertAction(title: "cancel", style: .default)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             
-            alertController.addAction(doneAction)
             alertController.addAction(cancelAction)
+            alertController.addAction(doneAction)
             
             vc?.present(alertController, animated: true)
         }

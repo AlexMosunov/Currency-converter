@@ -28,7 +28,11 @@ class TableViewCell: UITableViewCell {
     
     func set(leftText: String, rightText: String?) {
         bodyLabel.text = leftText
-        titleLabel.text = rightText ?? ""
+        
+        if let rightText = rightText {
+            titleLabel.text = "\(rightText) UAH"
+        }
+        
     }
     
     private func configureLeftLabel() {

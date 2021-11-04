@@ -82,7 +82,7 @@ class ConverterVC: UIViewController {
         AlamofireNetworkRequest.sendRequest(url: "\(Constants.PrivatBank.getBaseCurrencyExchanges)", apiType: .privatBank) { [self] (result) in
             switch result {
             case .failure(let error):
-                ErrorPresenter.showError(message: error.localizedDescription, on: self)
+                AlertController.showError(message: error.localizedDescription, on: self)
                 
             case .success(let currencyPairs):
                 guard let currencyPairs = currencyPairs as? [CurrencyPairPrivatbank] else { return }
