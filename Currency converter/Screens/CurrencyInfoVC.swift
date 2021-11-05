@@ -82,11 +82,11 @@ class CurrencyInfoVC: UIViewController {
     }
     
     func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search currency"
+        let searchController                                  = UISearchController()
+        searchController.searchResultsUpdater                 = self
+        searchController.searchBar.placeholder                = "Search currency"
         searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
+        navigationItem.searchController                       = searchController
     }
     
 }

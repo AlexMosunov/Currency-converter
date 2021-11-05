@@ -25,7 +25,8 @@ class PersonalBudgetVC: UIViewController {
         tableView = UITableView(frame: self.view.bounds)
         view.addSubview(tableView)
         tableView.dataSource = self
-        tableView.rowHeight = 50
+        tableView.delegate   = self
+        tableView.rowHeight  = 50
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseID)
         sendRequestForUserTransactions()
     }
@@ -77,6 +78,19 @@ extension PersonalBudgetVC: UITableViewDataSource {
         
         return cell
     }
-    
-    
+}
+
+extension PersonalBudgetVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let category     = model.categoriesWithValue[indexPath.row]
+        let transactions = model.transactionsPerCategory[category]
+        
+        if transactions != nil {
+            let destVC          = BudgetCategoryInfoVC()
+            destVC.transactions = transactions
+            destVC.category     = category
+            let navController   = UINavigationController(rootViewController: destVC)
+            present(navController, animated: true)
+        }
+    }
 }

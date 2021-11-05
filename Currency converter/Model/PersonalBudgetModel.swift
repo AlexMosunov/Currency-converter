@@ -109,21 +109,32 @@ struct PersonalBudgetModel {
     }
     
     var amountPerCategory: [Category : Float] = [:]
+    
+    var transactionsPerCategory: [Category : [UserTransaction]] = [:]
+    
     var categoriesWithValue = [Category]()
+    
     
     mutating func fetchUserTransactions(_ transactions: [UserTransaction]) -> String {
         var amount: Float = 0
         
+        
         for transaction in transactions {
+            
             if let code = transaction.mcc {
                 let category = self.getCategoryWith(code: code)
                 if amountPerCategory[category] != nil {
                     amountPerCategory[category]! += Float((transaction.amount! / 100))
+                    transactionsPerCategory[category]?.append(transaction)
+
                 } else {
                     amountPerCategory[category] = Float((transaction.amount! / 100))
                     categoriesWithValue.append(category)
+                    transactionsPerCategory[category] = [transaction]
+
                 }
             }
+            
             if let tAmount = transaction.amount {
                 amount += Float(tAmount / 100)
             }

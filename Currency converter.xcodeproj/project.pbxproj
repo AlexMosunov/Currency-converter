@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A78B23F2735883000D4ABE1 /* BudgetCategoryInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A78B23E2735883000D4ABE1 /* BudgetCategoryInfoVC.swift */; };
 		9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52426DE66F40097E2D8 /* AppDelegate.swift */; };
 		9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */; };
 		9A81C52E26DE66FA0097E2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C52D26DE66FA0097E2D8 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		2A1C0EB8F60131F907D1A8FA /* Pods_Currency_converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Currency_converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6899D61C40A23276E4B72342 /* Pods-Currency converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency converter.debug.xcconfig"; path = "Target Support Files/Pods-Currency converter/Pods-Currency converter.debug.xcconfig"; sourceTree = "<group>"; };
+		9A78B23E2735883000D4ABE1 /* BudgetCategoryInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCategoryInfoVC.swift; sourceTree = "<group>"; };
 		9A81C52126DE66F40097E2D8 /* Currency converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A81C52426DE66F40097E2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				9A81C54426DE71590097E2D8 /* ConverterVC.swift */,
 				9A81C54126DE703F0097E2D8 /* CurrencyInfoVC.swift */,
 				9AA1FB14272835920043C036 /* PersonalBudgetVC.swift */,
+				9A78B23E2735883000D4ABE1 /* BudgetCategoryInfoVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AB8E652272E8F20006C4D1B /* UserTransaction.swift in Sources */,
+				9A78B23F2735883000D4ABE1 /* BudgetCategoryInfoVC.swift in Sources */,
 				9AA1FB1927283CF90043C036 /* PersonalBudgetModel.swift in Sources */,
 				9AB774152719ACB9005019EA /* UIView+Ext.swift in Sources */,
 				9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */,
