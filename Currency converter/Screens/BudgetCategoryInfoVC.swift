@@ -38,8 +38,6 @@ class BudgetCategoryInfoVC: UIViewController {
     }
 }
 
-
-
 extension BudgetCategoryInfoVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions?.count ?? 0
@@ -55,8 +53,6 @@ extension BudgetCategoryInfoVC: UITableViewDataSource {
             cell.set(leftText: description, rightText: transactionAmount)
         }
 
-        
-        
         return cell
     }
     

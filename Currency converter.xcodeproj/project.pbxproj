@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A78B23F2735883000D4ABE1 /* BudgetCategoryInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A78B23E2735883000D4ABE1 /* BudgetCategoryInfoVC.swift */; };
+		9A78B26D273AC8C200D4ABE1 /* PersonalBudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A78B26B273AC8C200D4ABE1 /* PersonalBudget.xcdatamodeld */; };
 		9A81C52526DE66F40097E2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52426DE66F40097E2D8 /* AppDelegate.swift */; };
 		9A81C52726DE66F40097E2D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */; };
 		9A81C52E26DE66FA0097E2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A81C52D26DE66FA0097E2D8 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		2A1C0EB8F60131F907D1A8FA /* Pods_Currency_converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Currency_converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6899D61C40A23276E4B72342 /* Pods-Currency converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency converter.debug.xcconfig"; path = "Target Support Files/Pods-Currency converter/Pods-Currency converter.debug.xcconfig"; sourceTree = "<group>"; };
 		9A78B23E2735883000D4ABE1 /* BudgetCategoryInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCategoryInfoVC.swift; sourceTree = "<group>"; };
+		9A78B26C273AC8C200D4ABE1 /* PersonalBudget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalBudget.xcdatamodel; sourceTree = "<group>"; };
 		9A81C52126DE66F40097E2D8 /* Currency converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A81C52426DE66F40097E2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A81C52626DE66F40097E2D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				9A9FA58F271F40EB009F0601 /* CurrenciesExchangesModel.swift */,
 				9A9FA58D271F3F13009F0601 /* CurrencyDataParsed.swift */,
 				9AA1FB1827283CF80043C036 /* PersonalBudgetModel.swift */,
+				9A78B26B273AC8C200D4ABE1 /* PersonalBudget.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				9A81C54226DE703F0097E2D8 /* CurrencyInfoVC.swift in Sources */,
 				9A81C57E26EA84DD0097E2D8 /* CurrencyPairPrivatbank.swift in Sources */,
 				9A9FA583271DE2A5009F0601 /* UIHelper.swift in Sources */,
+				9A78B26D273AC8C200D4ABE1 /* PersonalBudget.xcdatamodeld in Sources */,
 				9AB7741B2719DAD0005019EA /* CEBodyLabel.swift in Sources */,
 				9A81C58626EB6A480097E2D8 /* CurrencyPairResult.swift in Sources */,
 				9A81C55026E78AFF0097E2D8 /* CCResultLabel.swift in Sources */,
@@ -575,6 +579,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9A78B26B273AC8C200D4ABE1 /* PersonalBudget.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9A78B26C273AC8C200D4ABE1 /* PersonalBudget.xcdatamodel */,
+			);
+			currentVersion = 9A78B26C273AC8C200D4ABE1 /* PersonalBudget.xcdatamodel */;
+			path = PersonalBudget.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9A81C51926DE66F40097E2D8 /* Project object */;
 }

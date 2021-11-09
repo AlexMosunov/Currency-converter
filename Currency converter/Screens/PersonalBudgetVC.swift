@@ -9,10 +9,25 @@ import UIKit
 
 class PersonalBudgetVC: UIViewController {
     
+    //MARK: Properties
+    
     private var tableView: UITableView!
     private var model = PersonalBudgetModel()
+    
+    // total amount of spendings
     private var totalAmount: String?
+    
+    // timer
+    private var timer: Timer?
+    private var readyForRefresh = true
+    
+    // user defaults
+    private let userTokenString = "userToken"
+    private let defaults = UserDefaults.standard
+    
 
+    //MARK: Overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -20,6 +35,8 @@ class PersonalBudgetVC: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonTapped))
     }
     
+    
+    //MARK: Private funcs
     
     private func configureTableView() {
         tableView = UITableView(frame: self.view.bounds)
@@ -32,25 +49,58 @@ class PersonalBudgetVC: UIViewController {
     }
     
     private func sendRequestForUserTransactions() {
-        AlertController.showUserDataInput(viewController: self) { userToken in
-            self.view.showActivityIndicator()
-            AlamofireNetworkRequest.getUserTransactions(url: Constants.Mono.getUserTransactions, token: userToken) { [weak self] result in
-                
-                switch result {
-                case .failure(let error):
-                    AlertController.showError(message: error.localizedDescription, on: self)
-                    
-                case .success(let userTransactions):
-                    guard let self = self else { return }
-                    self.totalAmount = self.model.fetchUserTransactions(userTransactions)
-                    self.title = "Total: \(self.totalAmount ?? "") UAH"
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.navigationItem.rightBarButtonItem = nil
-                    }
-                }
-                self?.view.removeActivityIndicator()
+        if readyForRefresh {
+            readyForRefresh = false
+            timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { timer in
+                print("Timer fired!")
+                self.readyForRefresh = true
             }
+        } else {
+            let timeLeft = timer != nil ?
+                           Int(Date(timeInterval: 0,
+                                    since: timer!.fireDate)
+                                    .timeIntervalSinceNow) :
+                           60
+            
+            AlertController.showError(message: "Please wait \(String(timeLeft)) seconds before refreshing", on: self)
+            return
+        }
+        
+        
+        
+        if let userToken = defaults.string(forKey: userTokenString) {
+            self.getUserTransactions(userToken)
+            return
+        }
+        
+        AlertController.showUserDataInput(viewController: self) { userToken in
+            self.getUserTransactions(userToken)
+        }
+    }
+    
+    private func getUserTransactions(_ userToken: String) {
+        self.view.showActivityIndicator()
+        AlamofireNetworkRequest.getUserTransactions(url: Constants.Mono.getUserTransactions, token: userToken) { [weak self] result in
+            
+            switch result {
+            case .failure(let error):
+                AlertController.showError(message: error.localizedDescription, on: self)
+                
+            case .success(let userTransactions):
+                guard let self = self else { return }
+                self.totalAmount = self.model.fetchUserTransactions(userTransactions)
+                self.title = "Total: \(self.totalAmount ?? "") UAH"
+                
+                self.defaults.set(userToken, forKey: self.userTokenString)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                                             target: self,
+                                                                             action: #selector(self.actionButtonTapped))
+                }
+            }
+            self?.view.removeActivityIndicator()
         }
     }
     
