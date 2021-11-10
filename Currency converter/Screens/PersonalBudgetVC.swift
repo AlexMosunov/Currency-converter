@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class PersonalBudgetVC: UIViewController {
     
@@ -21,9 +22,9 @@ class PersonalBudgetVC: UIViewController {
     private var timer: Timer?
     private var readyForRefresh = true
     
-    // user defaults
+    // keychain
     private let userTokenString = "userToken"
-    private let defaults = UserDefaults.standard
+    private let keychain = KeychainSwift()
     
 
     //MARK: Overrides
@@ -57,9 +58,7 @@ class PersonalBudgetVC: UIViewController {
             }
         } else {
             let timeLeft = timer != nil ?
-                           Int(Date(timeInterval: 0,
-                                    since: timer!.fireDate)
-                                    .timeIntervalSinceNow) :
+                           Int(timer!.fireDate.timeIntervalSinceNow.rounded()) :
                            60
             
             AlertController.showError(message: "Please wait \(String(timeLeft)) seconds before refreshing", on: self)
@@ -68,7 +67,7 @@ class PersonalBudgetVC: UIViewController {
         
         
         
-        if let userToken = defaults.string(forKey: userTokenString) {
+        if let userToken = keychain.get(userTokenString) {
             self.getUserTransactions(userToken)
             return
         }
@@ -91,7 +90,7 @@ class PersonalBudgetVC: UIViewController {
                 self.totalAmount = self.model.fetchUserTransactions(userTransactions)
                 self.title = "Total: \(self.totalAmount ?? "") UAH"
                 
-                self.defaults.set(userToken, forKey: self.userTokenString)
+                self.keychain.set(userToken, forKey: self.userTokenString)
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

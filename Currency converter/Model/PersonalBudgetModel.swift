@@ -116,8 +116,10 @@ struct PersonalBudgetModel {
     
     
     mutating func fetchUserTransactions(_ transactions: [UserTransaction]) -> String {
-        var amount: Float = 0
-        
+        var amount: Float       = 0
+        amountPerCategory       = [:]
+        transactionsPerCategory = [:]
+        categoriesWithValue     = []
         
         for transaction in transactions {
             
